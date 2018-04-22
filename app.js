@@ -1,5 +1,6 @@
 const http = require('http');
-
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
 //config
 const config = require('config');
 
@@ -11,6 +12,9 @@ const port = config.get('port');
 
 //using ejs for templating
 app.set('view engine', 'ejs');
+
+app.use(cookieParser());
+app.use(bodyParser.json());
 
 app.get('/', (req, res) => res.send('Hello World!'));
 

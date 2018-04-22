@@ -20,4 +20,10 @@
     "react-router": "^4.2.0",
     "webpack": "^4.6.0"
   }
+  {
+    "scripts":{
+      "start": "node app.js",
+      "bundle":"webpack"
+    }
+  }
 }
