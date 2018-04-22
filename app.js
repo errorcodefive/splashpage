@@ -8,14 +8,24 @@ const config = require('config');
 const express = require('express');
 const app = express();
 
-const port = config.get('port');
+const passport = require('passport');
+const session = require('express-session');
 
+const port = config.get('port');
+const secret = config.get('secret');
 //using ejs for templating
 app.set('view engine', 'ejs');
 
 app.use(cookieParser());
 app.use(bodyParser.json());
 
-app.get('/', (req, res) => res.send('Hello World!'));
 
-app.listen(port, ()=> console.log('Example app Listening on port 3000!'));
+//for passport
+app.use(session({secret: secret}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+require('./routes.js')(app, passport);
+
+app.listen(port);
+console.log("listening on port: " + port);

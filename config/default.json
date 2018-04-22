@@ -3,5 +3,6 @@
 	"mongodb":{
 		"user":"startpageuser",
 		"password":"password123"
-	}
+	},
+	"secret":"asdf"
 }
