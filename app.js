@@ -1,23 +1,30 @@
-const http = require('http');
-const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
+var http = require('http');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
 //config
-const config = require('config');
+var config = require('config');
 
 //express
-const express = require('express');
-const app = express();
+var express = require('express');
+var app = express();
 
-const passport = require('passport');
-const session = require('express-session');
+var passport = require('passport');
+var session = require('express-session');
 
-const port = config.get('port');
-const secret = config.get('secret');
+var port = config.get('port');
+var secret = config.get('secret');
 //using ejs for templating
 app.set('view engine', 'ejs');
 
+var mongoUser = config.get('mongodb').user;
+var mongoPassword=config.get('mongodb').password;
+
+mongoose.connect('mongodb://'+mongoUser+':'+mongoPassword+'@ds151070.mlab.com:51070/startpage-test')
+
 app.use(cookieParser());
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 
 //for passport
@@ -25,6 +32,7 @@ app.use(session({secret: secret}));
 app.use(passport.initialize());
 app.use(passport.session());
 
+require('./config/passport')(passport);
 require('./routes.js')(app, passport);
 
 app.listen(port);
