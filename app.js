@@ -14,25 +14,30 @@ var session = require('express-session');
 
 var port = config.get('port');
 var secret = config.get('secret');
-//using ejs for templating
-app.set('view engine', 'ejs');
 
 var mongoUser = config.get('mongodb').user;
 var mongoPassword=config.get('mongodb').password;
 
 mongoose.connect('mongodb://'+mongoUser+':'+mongoPassword+'@ds151070.mlab.com:51070/startpage-test')
 
+require('./config/passport')(passport);
+
 app.use(cookieParser());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 
+//using ejs for templating
+app.set('view engine', 'ejs');
 
 //for passport
-app.use(session({secret: secret}));
+app.use(session({secret: secret,
+	resave: true,
+	saveUninitialized: true
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 
-require('./config/passport')(passport);
+
 require('./routes.js')(app, passport);
 
 app.listen(port);

@@ -19,8 +19,9 @@ module.exports = function(passport){
 		passReqToCallback : true
 		},
 		function(req, username, password,done){
+			console.log("signingup");
 			process.nextTick(function(){
-				User.findOne({'username': username}, function(err, user){
+				User.findOne({ 'username' : username }, function(err, user){
 					if (err)
 						return done(err);
 					if(user){
@@ -41,24 +42,28 @@ module.exports = function(passport){
 			});
 		}
 	));
+	
 	passport.use('local-login', new strategy({
-		usernameFiled: 'username', 
-		passwordField: 'password',
-		passReqToCallback: true
-		}, function(req, username, password, done){
+		usernameField : 'username', 
+		passwordField : 'password',
+		passReqToCallback : true
+	}, 
+	function(req, username, password, done){
 		console.log("logging in");
-		User.findOne({'username': username}, function(err, user){
-			console.log("looking for users");
-			if (err)
-				return done(err);
-			if(!user){
-				console.log("no user found");
-				return done(null, false);
-			}
-			if(!user.validPassword(password)){
-				console.log("passwordinvalid");
-				return done(null, false);
-			}
+		process.nextTick(function(){
+			User.findOne({ 'username' : username }, function(err, user){
+				//any errors
+				if (err)
+					return done(err);
+				//no user
+				if(!user)
+					return done(null, false);
+				if(!user.validPassword(password))
+					return done(null, false);
+				else
+					return done(null, user);
+			});
 		});
+	
 	}));
 };
