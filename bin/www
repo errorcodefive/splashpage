@@ -1,7 +1,0 @@
-var app = require('../server/server');
-var config = require('config');
-var port = config.get('port');
-
-app.listen(port, function(){
-	console.log('running at localhost: ' + port);
-});
