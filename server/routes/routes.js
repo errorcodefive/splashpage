@@ -1,11 +1,13 @@
 module.exports = function(app, passport){
 	app.get('/', isLoggedIn, function(req,res){
+		console.log("get request for \/");
 		res.render('index');
 	});
 
 	app.get('/login', function(req,res){
-		res.render('login');
 		console.log('rendering login');
+		res.render('login');
+		
 	});
 	/*
 	app.post('/login', passport.authenticate('local-login', {

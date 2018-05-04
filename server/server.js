@@ -1,7 +1,7 @@
 //react
 var React =require('react');
 var ReactDOM=require('react-dom');
-
+var path = require('path');
 var http = require('http');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
@@ -11,6 +11,7 @@ var config = require('config');
 
 //express
 var express = require('express');
+var router = express.Router();
 var app = express();
 var ejs = require('ejs');
 
@@ -25,7 +26,7 @@ var mongoPassword=config.get('mongodb').password;
 
 mongoose.connect('mongodb://'+mongoUser+':'+mongoPassword+'@ds151070.mlab.com:51070/startpage-test')
 
-require('./config/passport')(passport);
+require('../config/passport')(passport);
 
 
 app.use(cookieParser());
@@ -52,4 +53,4 @@ app.use(session({secret: secret,
 app.use(passport.initialize());
 app.use(passport.session());
 
-require('../routes/routes.js')(app, passport);
+require('./routes/routes.js')(app, passport);
