@@ -15,9 +15,7 @@ function BookmarksTable(props) {
 	console.log(JSON.stringify(props.bookmarks));
 	var bookmarkRows = props.bookmarks.map(function (bookmark) {
 		return React.createElement(BookmarkRow, {
-			key: bookmark._id, bookmark: bookmark, deleteBookmark: function deleteBookmark() {
-				return props.deleteBookmark;
-			} });
+			key: bookmark._id, bookmark: bookmark, deleteBookmark: props.deleteBookmark });
 	});
 	return React.createElement(
 		"table",
@@ -126,7 +124,9 @@ var BookmarkRow = function BookmarkRow(props) {
 			null,
 			React.createElement(
 				"button",
-				{ onClick: props.deleteBookmark(props.bookmark._id) },
+				{ onClick: function onClick() {
+						return props.deleteBookmark(props.bookmark);
+					} },
 				"X"
 			)
 		)
@@ -143,6 +143,7 @@ var BookmarksList = function (_React$Component2) {
 
 		_this2.state = { bookmarks: [] };
 		_this2.createBookmark = _this2.createBookmark.bind(_this2);
+		//TODO: update bookmark
 		_this2.loadData = _this2.loadData.bind(_this2);
 		_this2.deleteBookmark = _this2.deleteBookmark.bind(_this2);
 		return _this2;
@@ -150,8 +151,24 @@ var BookmarksList = function (_React$Component2) {
 
 	_createClass(BookmarksList, [{
 		key: "deleteBookmark",
-		value: function deleteBookmark(id) {
-			if (confirm("Do you want to delete")) {}
+		value: function deleteBookmark(bookmark) {
+			var _this3 = this;
+
+			console.log("Delete ID: " + bookmark._id);
+			if (confirm("Do you want to delete")) {
+				fetch('/api/bookmarks', {
+					method: 'DELETE',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify(bookmark)
+				}).then(function (response) {
+					return response.json();
+				}).then(function (response) {
+					console.log("HERE:" + JSON.stringify(response));
+					_this3.loadData();
+				}).catch(function (err) {
+					alert("Error sending data to server: " + err.message);
+				});
+			}
 		}
 	}, {
 		key: "componentDidMount",
@@ -162,7 +179,7 @@ var BookmarksList = function (_React$Component2) {
 	}, {
 		key: "loadData",
 		value: function loadData() {
-			var _this3 = this;
+			var _this4 = this;
 
 			fetch('/api/bookmarks').then(function (response) {
 				return response.json();
@@ -170,7 +187,7 @@ var BookmarksList = function (_React$Component2) {
 				console.log("Fetching Bookmarks");
 				//console.log("Total number of records: ", data._metadata.total_count);
 				console.log(JSON.stringify(data));
-				_this3.setState({ bookmarks: data.data });
+				_this4.setState({ bookmarks: data.data });
 			}).catch(function (err) {
 				console.log(err);
 			});
@@ -178,7 +195,7 @@ var BookmarksList = function (_React$Component2) {
 	}, {
 		key: "createBookmark",
 		value: function createBookmark(newBookmark) {
-			var _this4 = this;
+			var _this5 = this;
 
 			fetch('/api/bookmarks', {
 				method: 'POST',
@@ -188,7 +205,7 @@ var BookmarksList = function (_React$Component2) {
 				return response.json();
 			}).then(function (response) {
 				console.log("HERE:" + JSON.stringify(response));
-				_this4.loadData(response);
+				_this5.loadData(response);
 			}).catch(function (err) {
 				alert("Error sending data to server: " + err.message);
 			});

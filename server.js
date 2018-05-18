@@ -25,7 +25,7 @@ mongoose.connect(mongoConnect, (err, db) => {
 		console.log("mongoose connected to: " + mongoConnect);
 	}
 });
-
+//var db = mongoose.connection;
 app.get('/api/bookmarks', (req, res)=>{
 	Bookmark.find((err, bookmarks)=>{
 		if(err) return err;
@@ -54,20 +54,19 @@ app.post('/api/bookmarks', (req, res)=>{
 	});
 });
 
-app.delete('/api/bookmarks/:id', (req, res) => {
+app.delete('/api/bookmarks', (req, res) => {
+	console.log("Received Delete Bookmark Request");
+	console.log('Name:' + req.body.name);
 	try{
-		bookmarkID = newObjectID(req.params.id);
+		bookmarkID = req.body._id;
 	} catch (error){
 		res.status(422).json({message: 'Invalid ID format: ${error}'});
 		return;
 	}
-	db.collection('bookmarks').deleteOne({_id: bookmarkID }).then((delResult) =>{
-		if(delResult.result.n ===1) res.json({status: 'Deleted'});
-		else res.json({status: "Object to delete not found"});
-	})
-	.catch(err=>{
-		console.log(err);
-		res.status(500).json({message: "Internal server error ${error}"});
+	console.log("Trying to delete: " + bookmarkID);
+	Bookmark.deleteOne({_id: bookmarkID}, function (err){
+		if(err) res.status(404).json({message: "No bookmark deleted: $(err)"});
+		return res.json({success: true});
 	});
 });
 
