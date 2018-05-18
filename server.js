@@ -54,6 +54,23 @@ app.post('/api/bookmarks', (req, res)=>{
 	});
 });
 
+app.delete('/api/bookmarks/:id', (req, res) => {
+	try{
+		bookmarkID = newObjectID(req.params.id);
+	} catch (error){
+		res.status(422).json({message: 'Invalid ID format: ${error}'});
+		return;
+	}
+	db.collection('bookmarks').deleteOne({_id: bookmarkID }).then((delResult) =>{
+		if(delResult.result.n ===1) res.json({status: 'Deleted'});
+		else res.json({status: "Object to delete not found"});
+	})
+	.catch(err=>{
+		console.log(err);
+		res.status(500).json({message: "Internal server error ${error}"});
+	});
+});
+
 app.listen(3000, function(){
 	console.log('App started on port 3000');
 });

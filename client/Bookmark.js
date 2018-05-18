@@ -8,14 +8,16 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var contentNode = document.getElementById('contents');
+var contentNode = document.getElementById('bookmarksMain');
 
 function BookmarksTable(props) {
 	console.log("Creating bookmarks table");
 	console.log(JSON.stringify(props.bookmarks));
 	var bookmarkRows = props.bookmarks.map(function (bookmark) {
 		return React.createElement(BookmarkRow, {
-			key: bookmark._id, bookmark: bookmark });
+			key: bookmark._id, bookmark: bookmark, deleteBookmark: function deleteBookmark() {
+				return props.deleteBookmark;
+			} });
 	});
 	return React.createElement(
 		"table",
@@ -40,7 +42,8 @@ function BookmarksTable(props) {
 					"th",
 					null,
 					"Link"
-				)
+				),
+				React.createElement("th", null)
 			)
 		),
 		React.createElement(
@@ -106,7 +109,7 @@ var BookmarkRow = function BookmarkRow(props) {
 		React.createElement(
 			"td",
 			null,
-			props.bookmark.id
+			props.bookmark._id
 		),
 		React.createElement(
 			"td",
@@ -117,6 +120,15 @@ var BookmarkRow = function BookmarkRow(props) {
 			"td",
 			null,
 			React.createElement(BookmarksLink, { bookmark: props.bookmark })
+		),
+		React.createElement(
+			"td",
+			null,
+			React.createElement(
+				"button",
+				{ onClick: props.deleteBookmark(props.bookmark._id) },
+				"X"
+			)
 		)
 	);
 };
@@ -132,10 +144,16 @@ var BookmarksList = function (_React$Component2) {
 		_this2.state = { bookmarks: [] };
 		_this2.createBookmark = _this2.createBookmark.bind(_this2);
 		_this2.loadData = _this2.loadData.bind(_this2);
+		_this2.deleteBookmark = _this2.deleteBookmark.bind(_this2);
 		return _this2;
 	}
 
 	_createClass(BookmarksList, [{
+		key: "deleteBookmark",
+		value: function deleteBookmark(id) {
+			if (confirm("Do you want to delete")) {}
+		}
+	}, {
 		key: "componentDidMount",
 		value: function componentDidMount() {
 			this.loadData();
@@ -187,7 +205,7 @@ var BookmarksList = function (_React$Component2) {
 					"Bookmarks"
 				),
 				React.createElement("hr", null),
-				React.createElement(BookmarksTable, { bookmarks: this.state.bookmarks }),
+				React.createElement(BookmarksTable, { bookmarks: this.state.bookmarks, deleteBookmark: this.deleteBookmark }),
 				React.createElement("hr", null),
 				React.createElement(BookmarkAdd, { createBookmark: this.createBookmark })
 			);

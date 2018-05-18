@@ -1,10 +1,10 @@
-var contentNode = document.getElementById('contents');
+var contentNode = document.getElementById('bookmarksMain');
 
 function BookmarksTable(props){
 	console.log("Creating bookmarks table");
 	console.log(JSON.stringify(props.bookmarks));
 	var bookmarkRows = props.bookmarks.map(bookmark=><BookmarkRow
-		key={bookmark._id} bookmark={bookmark} />);
+		key={bookmark._id} bookmark={bookmark} deleteBookmark={()=>props.deleteBookmark}/>);
 	return(
 		<table>
 			<thead>
@@ -12,6 +12,7 @@ function BookmarksTable(props){
 					<th>ID</th>
 					<th>Name</th>
 					<th>Link</th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>{bookmarkRows}</tbody>
@@ -46,19 +47,28 @@ class BookmarkAdd extends React.Component{
 	} 
 }
 
-const BookmarkRow = (props)=>(
-	<tr>
-		<td>{props.bookmark.id}</td>
-		<td>{props.bookmark.name}</td>
-		<td><BookmarksLink bookmark={props.bookmark} /></td>
-	</tr>
-);
+const BookmarkRow = (props)=>{
+	return(
+		<tr>
+			<td>{props.bookmark._id}</td>
+			<td>{props.bookmark.name}</td>
+			<td><BookmarksLink bookmark={props.bookmark} /></td>
+			<td><button onClick={props.deleteBookmark(props.bookmark._id)}>X</button></td>
+		</tr>
+	);
+};
 class BookmarksList extends React.Component {
 	constructor(){
 		super();
 		this.state={ bookmarks: [] };
 		this.createBookmark=this.createBookmark.bind(this);
 		this.loadData = this.loadData.bind(this);
+		this.deleteBookmark = this.deleteBookmark.bind(this);
+	}
+	deleteBookmark(id){
+		if(confirm("Do you want to delete")){
+
+		}
 	}
 	componentDidMount(){
 		this.loadData();
@@ -94,7 +104,7 @@ class BookmarksList extends React.Component {
 			<div>
 				<h1>Bookmarks</h1>
 				<hr />
-				<BookmarksTable bookmarks={this.state.bookmarks} />
+				<BookmarksTable bookmarks={this.state.bookmarks} deleteBookmark={this.deleteBookmark}/>
 				<hr />
 				<BookmarkAdd createBookmark={this.createBookmark} />
 			</div>
