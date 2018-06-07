@@ -262,21 +262,50 @@ var BookmarksLink = function (_React$Component3) {
 	return BookmarksLink;
 }(React.Component);
 
-var BookmarkUpdateModal = function (_React$Component4) {
-	_inherits(BookmarkUpdateModal, _React$Component4);
+var BookmarkUpdateForm = function (_React$Component4) {
+	_inherits(BookmarkUpdateForm, _React$Component4);
+
+	function BookmarkUpdateForm() {
+		_classCallCheck(this, BookmarkUpdateForm);
+
+		return _possibleConstructorReturn(this, (BookmarkUpdateForm.__proto__ || Object.getPrototypeOf(BookmarkUpdateForm)).apply(this, arguments));
+	}
+
+	_createClass(BookmarkUpdateForm, [{
+		key: "render",
+		value: function render() {
+			var bookmark = this.props.bookmark;
+			return React.createElement(
+				"div",
+				null,
+				"ASDHJKLJKLJ",
+				React.createElement(
+					"form",
+					{ name: "bookmarkUpdate", onSubmit: this.handleSubmit },
+					React.createElement("input", { type: "text", name: "name", value: bookmark.name })
+				)
+			);
+		}
+	}]);
+
+	return BookmarkUpdateForm;
+}(React.Component);
+
+var BookmarkUpdateModal = function (_React$Component5) {
+	_inherits(BookmarkUpdateModal, _React$Component5);
 
 	function BookmarkUpdateModal() {
 		_classCallCheck(this, BookmarkUpdateModal);
 
-		var _this7 = _possibleConstructorReturn(this, (BookmarkUpdateModal.__proto__ || Object.getPrototypeOf(BookmarkUpdateModal)).call(this));
+		var _this8 = _possibleConstructorReturn(this, (BookmarkUpdateModal.__proto__ || Object.getPrototypeOf(BookmarkUpdateModal)).call(this));
 
-		_this7.state = {
+		_this8.state = {
 			showModal: false
 		};
-		_this7.handleOpenModal = _this7.handleOpenModal.bind(_this7);
+		_this8.handleOpenModal = _this8.handleOpenModal.bind(_this8);
 		//this.afterOpenModal = this.afterOpenModal.bind(this);
-		_this7.handleCloseModal = _this7.handleCloseModal.bind(_this7);
-		return _this7;
+		_this8.handleCloseModal = _this8.handleCloseModal.bind(_this8);
+		return _this8;
 	}
 
 	_createClass(BookmarkUpdateModal, [{
@@ -315,7 +344,8 @@ var BookmarkUpdateModal = function (_React$Component4) {
 							"button",
 							{ onClick: this.handleCloseModal },
 							"Close Modal"
-						)
+						),
+						React.createElement(BookmarkUpdateForm, { bookmark: bookmark })
 					)
 				)
 			);

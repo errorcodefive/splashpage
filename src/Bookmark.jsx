@@ -136,6 +136,20 @@ class BookmarksLink extends React.Component{
 	}
 }
 
+class BookmarkUpdateForm extends React.Component{
+	render(){
+		var bookmark = this.props.bookmark;
+		return(
+			<div>
+				ASDHJKLJKLJ
+				<form name="bookmarkUpdate" onSubmit={this.handleSubmit}>
+					<input type="text" name="name" value={bookmark.name} />
+				</form>
+			</div>
+		);
+	}
+}
+
 class BookmarkUpdateModal extends React.Component {
 	constructor (){
 		super();
@@ -165,6 +179,7 @@ class BookmarkUpdateModal extends React.Component {
 				<button onClick={this.handleOpenModal}>Update {bookmark.name}</button>
 				<ReactModal	isOpen={this.state.showModal} contentLabel="Test123" onRequstClose={this.closeModal}>
 					<button onClick = {this.handleCloseModal}>Close Modal</button>
+					<BookmarkUpdateForm bookmark = {bookmark} />
 				</ReactModal>
 			</div>
 		)
