@@ -265,26 +265,107 @@ var BookmarksLink = function (_React$Component3) {
 var BookmarkUpdateForm = function (_React$Component4) {
 	_inherits(BookmarkUpdateForm, _React$Component4);
 
-	function BookmarkUpdateForm() {
+	function BookmarkUpdateForm(props) {
 		_classCallCheck(this, BookmarkUpdateForm);
 
-		return _possibleConstructorReturn(this, (BookmarkUpdateForm.__proto__ || Object.getPrototypeOf(BookmarkUpdateForm)).apply(this, arguments));
+		var _this7 = _possibleConstructorReturn(this, (BookmarkUpdateForm.__proto__ || Object.getPrototypeOf(BookmarkUpdateForm)).call(this, props));
+
+		_this7.state = {
+			name: _this7.props.bookmark.name,
+			link: _this7.props.bookmark.link,
+			command: _this7.props.bookmark.command,
+			query_url: _this7.props.bookmark.query_url
+		};
+
+		_this7.handleSubmit = _this7.handleSubmit.bind(_this7);
+		_this7.handleChangeName = _this7.handleChangeName.bind(_this7);
+		_this7.handleChangeLink = _this7.handleChangeLink.bind(_this7);
+		_this7.handleChangeCommand = _this7.handleChangeCommand.bind(_this7);
+		_this7.handleChangeQuery = _this7.handleChangeQuery.bind(_this7);
+		return _this7;
 	}
 
 	_createClass(BookmarkUpdateForm, [{
+		key: "handleChangeName",
+		value: function handleChangeName(e) {
+			this.setState({
+				name: e.target.value
+			});
+		}
+	}, {
+		key: "handleChangeLink",
+		value: function handleChangeLink(e) {
+			this.setState({
+				link: e.target.value
+			});
+		}
+	}, {
+		key: "handleChangeCommand",
+		value: function handleChangeCommand(e) {
+			this.setState({
+				command: e.target.value
+			});
+		}
+	}, {
+		key: "handleChangeQuery",
+		value: function handleChangeQuery(e) {
+			this.setState({
+				query_url: e.target.value
+			});
+		}
+	}, {
+		key: "handleSubmit",
+		value: function handleSubmit(e) {
+			e.preventDefault();
+			var form = document.forms.bookmarkUpdate;
+			this.props.updateBookmark({
+				name: form.name.value,
+				link: form.link.value,
+				command: form.command.value,
+				query_url: form.query_url.value
+			});
+		}
+	}, {
 		key: "render",
 		value: function render() {
 			var bookmark = this.props.bookmark;
 			return React.createElement(
 				"div",
 				null,
-				"ASDHJKLJKLJ",
+				"Update ",
+				bookmark.name,
 				React.createElement(
 					"form",
 					{ name: "bookmarkUpdate", onSubmit: this.handleSubmit },
-					React.createElement("input", { type: "text", name: "name", value: bookmark.name })
+					React.createElement("input", { type: "text", name: "name", value: this.state.name, onChange: this.handleChangeName }),
+					React.createElement("input", { type: "text", name: "link", value: this.state.link, onChange: this.handleChangeLink }),
+					React.createElement("input", { type: "text", name: "command", value: bookmark.command, placeholder: "Command", onChange: this.handleChangeCommand }),
+					React.createElement("input", { type: "text", name: "query_url", value: bookmark.query_url, placeholder: "Query URL", onChange: this.handleChangeQuery }),
+					React.createElement(
+						"button",
+						null,
+						"Update"
+					)
 				)
 			);
+		}
+	}, {
+		key: "updateBookmark",
+		value: function updateBookmark(bmToUpdate) {
+			var _this8 = this;
+
+			fetch('/api/bookmarks', {
+				method: 'PUT',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(bmToUpdate)
+			}).then(function (response) {
+				return response.json();
+			}).then(function (response) {
+				console.log("Received response from bookmark PUT: " + JSON.stringify(response));
+				_this8.loadData(response);
+			}).catch(function (err) {
+				alert("Error sending data to server: " + err.message);
+			});
 		}
 	}]);
 
@@ -297,15 +378,15 @@ var BookmarkUpdateModal = function (_React$Component5) {
 	function BookmarkUpdateModal() {
 		_classCallCheck(this, BookmarkUpdateModal);
 
-		var _this8 = _possibleConstructorReturn(this, (BookmarkUpdateModal.__proto__ || Object.getPrototypeOf(BookmarkUpdateModal)).call(this));
+		var _this9 = _possibleConstructorReturn(this, (BookmarkUpdateModal.__proto__ || Object.getPrototypeOf(BookmarkUpdateModal)).call(this));
 
-		_this8.state = {
+		_this9.state = {
 			showModal: false
 		};
-		_this8.handleOpenModal = _this8.handleOpenModal.bind(_this8);
+		_this9.handleOpenModal = _this9.handleOpenModal.bind(_this9);
 		//this.afterOpenModal = this.afterOpenModal.bind(this);
-		_this8.handleCloseModal = _this8.handleCloseModal.bind(_this8);
-		return _this8;
+		_this9.handleCloseModal = _this9.handleCloseModal.bind(_this9);
+		return _this9;
 	}
 
 	_createClass(BookmarkUpdateModal, [{

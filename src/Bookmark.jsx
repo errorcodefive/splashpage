@@ -137,17 +137,80 @@ class BookmarksLink extends React.Component{
 }
 
 class BookmarkUpdateForm extends React.Component{
+	constructor(props){
+		super(props);
+		this.state={
+			name: this.props.bookmark.name,
+			link: this.props.bookmark.link,
+			command: this.props.bookmark.command,
+			query_url: this.props.bookmark.query_url
+		};
+
+		this.handleSubmit=this.handleSubmit.bind(this);
+		this.handleChangeName=this.handleChangeName.bind(this);
+		this.handleChangeLink=this.handleChangeLink.bind(this);
+		this.handleChangeCommand=this.handleChangeCommand.bind(this);
+		this.handleChangeQuery=this.handleChangeQuery.bind(this);
+	}
+	handleChangeName(e){
+		this.setState({
+			name: e.target.value,
+		});
+	}
+	handleChangeLink(e){
+		this.setState({
+			link: e.target.value,
+		});
+	}
+	handleChangeCommand(e){
+		this.setState({
+			command: e.target.value,
+		});
+	}
+	handleChangeQuery(e){
+		this.setState({
+			query_url: e.target.value,
+		});
+	}
+	handleSubmit(e){
+		e.preventDefault();
+		var form = document.forms.bookmarkUpdate;
+		this.props.updateBookmark({
+			name: form.name.value,
+			link: form.link.value,
+			command: form.command.value,
+			query_url: form.query_url.value,
+		});
+	}
 	render(){
 		var bookmark = this.props.bookmark;
 		return(
 			<div>
-				ASDHJKLJKLJ
+				Update {bookmark.name}
 				<form name="bookmarkUpdate" onSubmit={this.handleSubmit}>
-					<input type="text" name="name" value={bookmark.name} />
+					<input type="text" name="name" value={this.state.name} onChange={this.handleChangeName}/>
+					<input type="text" name="link" value={this.state.link} onChange={this.handleChangeLink}/>
+					<input type="text" name="command" value={bookmark.command} placeholder="Command" onChange={this.handleChangeCommand}/>
+					<input type="text" name="query_url" value = {bookmark.query_url} placeholder="Query URL" onChange={this.handleChangeQuery}/>
+					<button>Update</button>
 				</form>
 			</div>
 		);
 	}
+	updateBookmark(bmToUpdate){
+		fetch('/api/bookmarks', {
+			method: 'PUT',
+			headers: {'Content-Type': 'application/json' },
+			body: JSON.stringify(bmToUpdate),
+		}).then(response=>response.json()
+		).then(response=>{
+			console.log("Received response from bookmark PUT: " + JSON.stringify(response));
+			this.loadData(response);
+		}).catch(err=>{
+			alert("Error sending data to server: " + err.message);
+		});
+	}
+	
 }
 
 class BookmarkUpdateModal extends React.Component {
