@@ -41,6 +41,7 @@ function BookmarksTable(props) {
 					null,
 					"Link"
 				),
+				React.createElement("th", null),
 				React.createElement("th", null)
 			)
 		),
@@ -129,6 +130,11 @@ var BookmarkRow = function BookmarkRow(props) {
 					} },
 				"X"
 			)
+		),
+		React.createElement(
+			"td",
+			null,
+			React.createElement(BookmarkUpdateModal, { bookmark: props.bookmark })
 		)
 	);
 };
@@ -247,13 +253,76 @@ var BookmarksLink = function (_React$Component3) {
 			var bookmark = this.props.bookmark;
 			return React.createElement(
 				"a",
-				{ href: bookmark.link },
+				{ href: bookmark.link, target: "_blank" },
 				bookmark.name
 			);
 		}
 	}]);
 
 	return BookmarksLink;
+}(React.Component);
+
+var BookmarkUpdateModal = function (_React$Component4) {
+	_inherits(BookmarkUpdateModal, _React$Component4);
+
+	function BookmarkUpdateModal() {
+		_classCallCheck(this, BookmarkUpdateModal);
+
+		var _this7 = _possibleConstructorReturn(this, (BookmarkUpdateModal.__proto__ || Object.getPrototypeOf(BookmarkUpdateModal)).call(this));
+
+		_this7.state = {
+			showModal: false
+		};
+		_this7.handleOpenModal = _this7.handleOpenModal.bind(_this7);
+		//this.afterOpenModal = this.afterOpenModal.bind(this);
+		_this7.handleCloseModal = _this7.handleCloseModal.bind(_this7);
+		return _this7;
+	}
+
+	_createClass(BookmarkUpdateModal, [{
+		key: "handleOpenModal",
+		value: function handleOpenModal() {
+			this.setState({ showModal: true });
+		}
+		// afterOpenModal(){
+		// 	this.
+		// }
+
+	}, {
+		key: "handleCloseModal",
+		value: function handleCloseModal() {
+			this.setState({ showModal: false });
+		}
+	}, {
+		key: "render",
+		value: function render() {
+			var bookmark = this.props.bookmark;
+			return (
+				//render a bookmark row + an update button
+				React.createElement(
+					"div",
+					null,
+					React.createElement(
+						"button",
+						{ onClick: this.handleOpenModal },
+						"Update ",
+						bookmark.name
+					),
+					React.createElement(
+						ReactModal,
+						{ isOpen: this.state.showModal, contentLabel: "Test123", onRequstClose: this.closeModal },
+						React.createElement(
+							"button",
+							{ onClick: this.handleCloseModal },
+							"Close Modal"
+						)
+					)
+				)
+			);
+		}
+	}]);
+
+	return BookmarkUpdateModal;
 }(React.Component);
 
 ReactDOM.render(React.createElement(BookmarksList, null), contentNode);

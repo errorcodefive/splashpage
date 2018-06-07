@@ -5,6 +5,9 @@ var bookmarkSchema = new Schema({
 	//id: Number,
 	name: String,
 	link: String,
+	order: {
+		type: Number
+	},
 	command: String,
 	query_url: String
 });

@@ -13,12 +13,14 @@ function BookmarksTable(props){
 		<th>Name</th>
 		<th>Link</th>
 		<th></th>
+		<th></th>
 		</tr>
 		</thead>
 		<tbody>{bookmarkRows}</tbody>
 		</table>
 		);
 }
+
 class BookmarkAdd extends React.Component{
 	constructor(){
 		super();
@@ -54,6 +56,7 @@ const BookmarkRow = (props)=>{
 		<td>{props.bookmark.name}</td>
 		<td><BookmarksLink bookmark={props.bookmark} /></td>
 		<td><button onClick={()=>props.deleteBookmark(props.bookmark)}>X</button></td>
+		<td><BookmarkUpdateModal bookmark={props.bookmark} /></td>
 		</tr>
 		);
 };
@@ -128,9 +131,44 @@ class BookmarksLink extends React.Component{
 	render(){
 		var bookmark =this.props.bookmark;
 		return(
-			<a href={bookmark.link}>{bookmark.name}</a>
+			<a href={bookmark.link} target="_blank">{bookmark.name}</a>
 			)
 	}
+}
+
+class BookmarkUpdateModal extends React.Component {
+	constructor (){
+		super();
+		this.state={
+			showModal: false
+		};
+		this.handleOpenModal = this.handleOpenModal.bind(this);
+		//this.afterOpenModal = this.afterOpenModal.bind(this);
+		this.handleCloseModal = this.handleCloseModal.bind(this);
+	}
+	handleOpenModal(){
+		this.setState({showModal: true});
+	}
+	// afterOpenModal(){
+	// 	this.
+	// }
+
+	handleCloseModal(){
+		this.setState({showModal: false});
+	}
+
+	render(){
+		var bookmark = this.props.bookmark;
+		return(
+			//render a bookmark row + an update button
+			<div>
+				<button onClick={this.handleOpenModal}>Update {bookmark.name}</button>
+				<ReactModal	isOpen={this.state.showModal} contentLabel="Test123" onRequstClose={this.closeModal}>
+					<button onClick = {this.handleCloseModal}>Close Modal</button>
+				</ReactModal>
+			</div>
+		)
+	}	
 }
 
 ReactDOM.render(<BookmarksList />, contentNode);
