@@ -27,6 +27,7 @@ mongoose.connect(mongoConnect, (err, db) => {
 });
 //var db = mongoose.connection;
 app.get('/api/bookmarks', (req, res)=>{
+	console.log("Received GET bookmark request");
 	Bookmark.find((err, bookmarks)=>{
 		if(err) return err;
 		return res.json({ success: true, data: bookmarks })
@@ -42,16 +43,33 @@ app.post('/api/bookmarks', (req, res)=>{
 			link: req.body.link
 		}
 	);
-	console.log("Received new bookmark request");
+	console.log("Received POST bookmark request");
 	console.log("Name/URL: " + newBookmark.name + "/" + newBookmark.link);
 	//newBookmark.id = bookmarks.length+1;
 	console.log("New BM" + JSON.stringify(newBookmark));
 	console.log("Created new bookmark");
-
 	newBookmark.save(err=> {
 		if(err) return err;
 		return res.json({success: true});
 	});
+});
+
+app.put('/api/bookmarks', (req, res) =>{
+	console.log('Received Update Bookmark Request');
+	var updateId = {_id: req.body._id};
+	var updateValues = {
+		name: req.body.name,
+		link: req.body.link,
+		command: req.body.command,
+		query_url: req.body.query_url
+	};
+	console.log("Querying for ID: " + updateId._id);
+	Bookmark.update(updateId, updateValues, function(err){
+		if (err) throw err;
+		res.json({success: true});
+	});
+
+
 });
 
 app.delete('/api/bookmarks', (req, res) => {

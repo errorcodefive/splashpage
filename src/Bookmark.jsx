@@ -140,6 +140,7 @@ class BookmarkUpdateForm extends React.Component{
 	constructor(props){
 		super(props);
 		this.state={
+			_id: this.props.bookmark._id,
 			name: this.props.bookmark.name,
 			link: this.props.bookmark.link,
 			command: this.props.bookmark.command,
@@ -151,6 +152,8 @@ class BookmarkUpdateForm extends React.Component{
 		this.handleChangeLink=this.handleChangeLink.bind(this);
 		this.handleChangeCommand=this.handleChangeCommand.bind(this);
 		this.handleChangeQuery=this.handleChangeQuery.bind(this);
+		this.updateBookmark = this.updateBookmark.bind(this);
+
 	}
 	handleChangeName(e){
 		this.setState({
@@ -175,7 +178,8 @@ class BookmarkUpdateForm extends React.Component{
 	handleSubmit(e){
 		e.preventDefault();
 		var form = document.forms.bookmarkUpdate;
-		this.props.updateBookmark({
+		this.updateBookmark({
+			_id: this.props.bookmark._id,
 			name: form.name.value,
 			link: form.link.value,
 			command: form.command.value,
@@ -205,9 +209,6 @@ class BookmarkUpdateForm extends React.Component{
 		}).then(response=>response.json()
 		).then(response=>{
 			console.log("Received response from bookmark PUT: " + JSON.stringify(response));
-			this.loadData(response);
-		}).catch(err=>{
-			alert("Error sending data to server: " + err.message);
 		});
 	}
 	
