@@ -17,21 +17,28 @@ var mongoConnect = 'mongodb://'+mongoDbUser+':'+mongoDbPassword+'@ds151070.mlab.
 //Schemas
 var Bookmark = require('./schemas/bookmarks');
 
-mongoose.connect(mongoConnect, (err, db) => {
-	if (err) {
+mongoose.connect(mongoConnect).then(
+	()=>{
+		console.log("mongoose connected to: " + mongoConnect)
+	},
+	err=>{
 		console.log('err', err);
 	}
-	else {
-		console.log("mongoose connected to: " + mongoConnect);
-	}
-});
+);
 //var db = mongoose.connection;
+
 app.get('/api/bookmarks', (req, res)=>{
 	console.log("Received GET bookmark request");
-	Bookmark.find((err, bookmarks)=>{
-		if(err) return err;
-		return res.json({ success: true, data: bookmarks })
-	});
+
+	Bookmark.find()
+	.then(
+		(bookmarks)=>{
+			return res.json({success: true, data: bookmarks})
+		}
+	)
+	.catch(
+		(err)=>{console.log("err", err)}
+	);
 	//var metadata = { total_count: bookmarks.length };
 	//res.json({ _metadata: metadata, records: bookmarks });
 });
@@ -48,10 +55,12 @@ app.post('/api/bookmarks', (req, res)=>{
 	//newBookmark.id = bookmarks.length+1;
 	console.log("New BM" + JSON.stringify(newBookmark));
 	console.log("Created new bookmark");
-	newBookmark.save(err=> {
-		if(err) return err;
-		return res.json({success: true});
-	});
+
+	newBookmark.save().then(
+		()=>{return res.json({success: true})}
+	).catch(
+		(err)=>{console.log("err",err)}
+	);
 });
 
 app.put('/api/bookmarks', (req, res) =>{
@@ -64,14 +73,15 @@ app.put('/api/bookmarks', (req, res) =>{
 		query_url: req.body.query_url
 	};
 	console.log("Querying for ID: " + updateId._id);
-	Bookmark.update(updateId, updateValues, function(err){
-		if (err) throw err;
-		res.json({success: true});
-	});
 
+	Bookmark.update(updateId, updateValues).then(
+		()=>{res.json({success: true})}
+	).catch(
+		(err)=>{console.log("err", err)}
+	);
 
 });
-
+//callback
 app.delete('/api/bookmarks', (req, res) => {
 	console.log("Received Delete Bookmark Request");
 	console.log('Name:' + req.body.name);
@@ -82,10 +92,13 @@ app.delete('/api/bookmarks', (req, res) => {
 		return;
 	}
 	console.log("Trying to delete: " + bookmarkID);
-	Bookmark.deleteOne({_id: bookmarkID}, function (err){
-		if(err) res.status(404).json({message: "No bookmark deleted: $(err)"});
-		return res.json({success: true});
-	});
+
+	Bookmark.deleteOne({_id: bookmarkID}).then(
+		()=>{return res.json({success: true})}
+	).catch(
+		(err)=>{res.status(404).json({message: "No bookmark deleted: $(err)"})}
+	);
+
 });
 
 app.listen(3000, function(){
