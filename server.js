@@ -8,9 +8,9 @@ app.use(express.static('client'));
 app.use(bodyParser.json());
 
 //connect to mongodb
-var mongoDbName = config.get('mongoDB.db');
-var mongoDbUser = config.get('mongoDB.user');
-var mongoDbPassword = config.get('mongoDB.pw');
+var mongoDbName = config.get('mongoDB.db') || process.env.MONGODB_DB;
+var mongoDbUser = config.get('mongoDB.user') || process.env.MONGODB_USER;
+var mongoDbPassword = config.get('mongoDB.pw') || process.env.MONGODB_PW;
 
 var mongoConnect = 'mongodb://'+mongoDbUser+':'+mongoDbPassword+'@ds151070.mlab.com:51070/'+mongoDbName;
 
