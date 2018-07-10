@@ -4,7 +4,7 @@
   "description": "splashpage",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha",
     "compile": "babel src --presets react,es2015 --out-dir client",
     "watch": "babel src --presets react,es2015 --out-dir client --watch",
     "start": "nodemon -w server.js server.js"
