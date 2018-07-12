@@ -101,6 +101,6 @@ app.delete('/api/bookmarks', (req, res) => {
 
 });
 
-app.listen(3000, function(){
+module.exports = app.listen(3000, function(){
 	console.log('App started on port 3000');
 });
