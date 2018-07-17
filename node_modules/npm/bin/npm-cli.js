@@ -74,7 +74,10 @@
   conf._exit = true
   npm.load(conf, function (er) {
     if (er) return errorHandler(er)
-    if (!unsupported.checkVersion(process.version).unsupported) {
+    if (
+      npm.config.get('update-notifier') &&
+      !unsupported.checkVersion(process.version).unsupported
+    ) {
       const pkg = require('../package.json')
       let notifier = require('update-notifier')({pkg})
       if (
@@ -100,9 +103,9 @@
               break
           }
         }
-        const changelog = `https://github.com/npm/npm/releases/tag/v${latest}`
+        const changelog = `https://github.com/npm/cli/releases/tag/v${latest}`
         notifier.notify({
-          message: `New ${type} version of npm available! ${
+          message: `New ${type} version of ${pkg.name} available! ${
             useColor ? color.red(old) : old
           } ${useUnicode ? '→' : '->'} ${
             useColor ? color.green(latest) : latest
@@ -110,10 +113,12 @@
           `${
             useColor ? color.yellow('Changelog:') : 'Changelog:'
           } ${
-            useColor ? color.cyan(changelog + ':') : changelog + ':'
+            useColor ? color.cyan(changelog) : changelog
           }\n` +
           `Run ${
-            useColor ? color.green('npm install -g npm') : 'npm i -g npm'
+            useColor
+              ? color.green(`npm install -g ${pkg.name}`)
+              : `npm i -g ${pkg.name}`
           } to update!`
         })
       }

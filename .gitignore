@@ -1,3 +1,5 @@
 /config/default.json
 node_modules/
 .nyc_output/
+/coverage
+.vscode/settings.json

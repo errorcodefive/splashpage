@@ -14,9 +14,7 @@ describe('Bookmarks', function(){
                 res.should.have.status(200);
                 res.should.be.json;
                 res.should.be.a('object');
-                res.should.have.property('_id');
-                res.should.have.property('name');
-                res.should.have.property('link');
+                res.success.should.be('true');
                 
                 done();
             });
