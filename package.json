@@ -4,8 +4,8 @@
   "description": "splashpage",
   "main": "server.js",
   "scripts": {
-    "test": "mocha test/test-server.js -w --compilers js:babel-register --exit",
-    "coverage": "nyc check-coverage --reporter=text",
+    "test": "nyc --reporter=lcov mocha test/test-server.js -w --require babel-register --exit",
+    "coverage": "nyc report --reporter=text-lcov > coverage/lcov.info",
     "compile": "babel src --presets react,es2015 --out-dir client",
     "watch": "babel src --presets react,es2015 --out-dir client --watch",
     "start": "nodemon -w server.js server.js"

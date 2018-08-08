@@ -10,12 +10,11 @@ describe('Bookmarks', function(){
         chai.request(server)
             .get('/api/bookmarks')
             .end(function(err,res){
-                console.log(res.body);
+                console.log(res.body.success);
                 res.should.have.status(200);
                 res.should.be.json;
                 res.should.be.a('object');
-                res.success.should.be('true');
-                
+                res.body.success.should.be.true;
                 done();
             });
     });
