@@ -15,7 +15,7 @@ function BookmarksTable(props) {
 	console.log(JSON.stringify(props.bookmarks));
 	var bookmarkRows = props.bookmarks.map(function (bookmark) {
 		return React.createElement(BookmarkRow, {
-			key: bookmark._id, bookmark: bookmark, deleteBookmark: props.deleteBookmark });
+			key: bookmark._id, bookmark: bookmark, deleteBookmark: props.deleteBookmark, loadData: props.loadData });
 	});
 	return React.createElement(
 		"table",
@@ -134,7 +134,7 @@ var BookmarkRow = function BookmarkRow(props) {
 		React.createElement(
 			"td",
 			null,
-			React.createElement(BookmarkUpdateModal, { bookmark: props.bookmark })
+			React.createElement(BookmarkUpdateModal, { bookmark: props.bookmark, loadData: props.loadData })
 		)
 	);
 };
@@ -199,6 +199,12 @@ var BookmarksList = function (_React$Component2) {
 			});
 		}
 	}, {
+		key: "forceChange",
+		value: function forceChange() {
+			console.log("bookmarks have been force updated");
+			this.loadData();
+		}
+	}, {
 		key: "createBookmark",
 		value: function createBookmark(newBookmark) {
 			var _this5 = this;
@@ -228,7 +234,7 @@ var BookmarksList = function (_React$Component2) {
 					"Bookmarks"
 				),
 				React.createElement("hr", null),
-				React.createElement(BookmarksTable, { bookmarks: this.state.bookmarks, deleteBookmark: this.deleteBookmark }),
+				React.createElement(BookmarksTable, { bookmarks: this.state.bookmarks, deleteBookmark: this.deleteBookmark, loadData: this.forceChange }),
 				React.createElement("hr", null),
 				React.createElement(BookmarkAdd, { createBookmark: this.createBookmark })
 			);
@@ -285,6 +291,7 @@ var BookmarkUpdateForm = function (_React$Component4) {
 		_this7.handleChangeQuery = _this7.handleChangeQuery.bind(_this7);
 		_this7.updateBookmark = _this7.updateBookmark.bind(_this7);
 		_this7.closingModal = _this7.closingModal.bind(_this7);
+		_this7.myOnSubmit = _this7.myOnSubmit.bind(_this7);
 		return _this7;
 	}
 
@@ -335,6 +342,12 @@ var BookmarkUpdateForm = function (_React$Component4) {
 			});
 		}
 	}, {
+		key: "myOnSubmit",
+		value: function myOnSubmit(e) {
+			this.handleSubmit(e);
+			this.loadData();
+		}
+	}, {
 		key: "render",
 		value: function render() {
 			var bookmark = this.props.bookmark;
@@ -345,7 +358,7 @@ var BookmarkUpdateForm = function (_React$Component4) {
 				bookmark.name,
 				React.createElement(
 					"form",
-					{ name: "bookmarkUpdate", onSubmit: this.handleSubmit },
+					{ name: "bookmarkUpdate", onSubmit: this.myOnSubmit },
 					React.createElement("input", { type: "text", name: "name", value: this.state.name, onChange: this.handleChangeName }),
 					React.createElement("input", { type: "text", name: "link", value: this.state.link, onChange: this.handleChangeLink }),
 					React.createElement("input", { type: "text", name: "command", value: bookmark.command, placeholder: "Command", onChange: this.handleChangeCommand }),
@@ -371,6 +384,7 @@ var BookmarkUpdateForm = function (_React$Component4) {
 				return response.json();
 			}).then(function (response) {
 				console.log("Received response from bookmark PUT: " + JSON.stringify(response));
+				console.log("about to update bookmarks");
 			});
 		}
 	}]);
@@ -432,7 +446,7 @@ var BookmarkUpdateModal = function (_React$Component5) {
 							{ onClick: this.handleCloseModal },
 							"Close Modal"
 						),
-						React.createElement(BookmarkUpdateForm, { bookmark: bookmark, closeModal: this.handleCloseModal })
+						React.createElement(BookmarkUpdateForm, { bookmark: bookmark, closeModal: this.handleCloseModal, loadData: this.props.loadData })
 					)
 				)
 			);

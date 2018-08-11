@@ -4,7 +4,7 @@ function BookmarksTable(props){
 	console.log("Creating bookmarks table");
 	console.log(JSON.stringify(props.bookmarks));
 	var bookmarkRows = props.bookmarks.map(bookmark=><BookmarkRow
-		key={bookmark._id} bookmark={bookmark} deleteBookmark={props.deleteBookmark}/>);
+		key={bookmark._id} bookmark={bookmark} deleteBookmark={props.deleteBookmark} loadData={props.loadData}/>);
 	return(
 		<table>
 		<thead>
@@ -56,7 +56,7 @@ const BookmarkRow = (props)=>{
 		<td>{props.bookmark.name}</td>
 		<td><BookmarksLink bookmark={props.bookmark} /></td>
 		<td><button onClick={()=>props.deleteBookmark(props.bookmark)}>X</button></td>
-		<td><BookmarkUpdateModal bookmark={props.bookmark} /></td>
+		<td><BookmarkUpdateModal bookmark={props.bookmark} loadData={props.loadData} /></td>
 		</tr>
 		);
 };
@@ -101,6 +101,10 @@ class BookmarksList extends React.Component {
 			console.log(err);
 		});
 	}
+	forceChange(){
+		console.log("bookmarks have been force updated");
+		this.loadData();
+	}
 	createBookmark(newBookmark){
 		fetch('/api/bookmarks', {
 			method: 'POST',
@@ -119,7 +123,7 @@ class BookmarksList extends React.Component {
 			<div>
 			<h1>Bookmarks</h1>
 			<hr />
-			<BookmarksTable bookmarks={this.state.bookmarks} deleteBookmark={this.deleteBookmark}/>
+			<BookmarksTable bookmarks={this.state.bookmarks} deleteBookmark={this.deleteBookmark} loadData={this.forceChange}/>
 			<hr />
 			<BookmarkAdd createBookmark={this.createBookmark} />
 			</div>
@@ -154,6 +158,7 @@ class BookmarkUpdateForm extends React.Component{
 		this.handleChangeQuery=this.handleChangeQuery.bind(this);
 		this.updateBookmark = this.updateBookmark.bind(this);
 		this.closingModal = this.closingModal.bind(this);
+		this.myOnSubmit = this.myOnSubmit.bind(this);
 	}
 	closingModal(){
 		this.props.closeModal();
@@ -190,12 +195,16 @@ class BookmarkUpdateForm extends React.Component{
 			query_url: form.query_url.value,
 		});
 	}
+	myOnSubmit(e){
+		this.handleSubmit(e);
+		this.loadData();
+	}
 	render(){
 		var bookmark = this.props.bookmark;
 		return(
 			<div>
 				Update {bookmark.name}
-				<form name="bookmarkUpdate" onSubmit={this.handleSubmit}>
+				<form name="bookmarkUpdate" onSubmit={this.myOnSubmit}>
 					<input type="text" name="name" value={this.state.name} onChange={this.handleChangeName}/>
 					<input type="text" name="link" value={this.state.link} onChange={this.handleChangeLink}/>
 					<input type="text" name="command" value={bookmark.command} placeholder="Command" onChange={this.handleChangeCommand}/>
@@ -215,6 +224,7 @@ class BookmarkUpdateForm extends React.Component{
 		}).then(response=>response.json()
 		).then(response=>{
 			console.log("Received response from bookmark PUT: " + JSON.stringify(response));
+			console.log("about to update bookmarks");
 		});
 	}
 	
@@ -249,7 +259,7 @@ class BookmarkUpdateModal extends React.Component {
 				<button onClick={this.handleOpenModal}>Update {bookmark.name}</button>
 				<ReactModal	isOpen={this.state.showModal} contentLabel="Test123" onRequstClose={this.closeModal}>
 					<button onClick = {this.handleCloseModal}>Close Modal</button>
-					<BookmarkUpdateForm bookmark = {bookmark} closeModal={this.handleCloseModal} />
+					<BookmarkUpdateForm bookmark = {bookmark} closeModal={this.handleCloseModal} loadData={this.props.loadData}/>
 				</ReactModal>
 			</div>
 		)
