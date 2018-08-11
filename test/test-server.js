@@ -9,10 +9,22 @@ chai.use(chaiHttp);
 
 describe('Bookmarks', function(){
     it('should list all bookmarks on /api/bookmarks GET', function(done){
+
+        var request = sinon.stub(chai, 'request');
+        
+        get.returns({success: true, data: {
+            "_id": {
+                "$oid": "5b6b753c4393560610f69e9f"
+            },
+            "name": "Yahoo",
+            "link": "https://ca.yahoo.com/",
+            "__v": 0
+        }});
+
         chai.request(server)
             .get('/api/bookmarks')
             .end(function(err,res){
-                console.log(res.body.success);
+                console.log(res.body);
                 res.should.have.status(200);
                 res.should.be.json;
                 res.should.be.a('object');

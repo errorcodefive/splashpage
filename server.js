@@ -14,7 +14,7 @@ var mongoDbPassword = config.get('mongoDB.pw') || process.env.MONGODB_PW;
 
 var mongoConnect = 'mongodb://'+mongoDbUser+':'+mongoDbPassword+'@ds151070.mlab.com:51070/'+mongoDbName;
 
-//Schemas
+//Schemas	
 var Bookmark = require('./schemas/bookmarks');
 
 mongoose.connect(mongoConnect).then(
