@@ -153,7 +153,10 @@ class BookmarkUpdateForm extends React.Component{
 		this.handleChangeCommand=this.handleChangeCommand.bind(this);
 		this.handleChangeQuery=this.handleChangeQuery.bind(this);
 		this.updateBookmark = this.updateBookmark.bind(this);
-
+		this.closingModal = this.closingModal.bind(this);
+	}
+	closingModal(){
+		this.props.closeModal();
 	}
 	handleChangeName(e){
 		this.setState({
@@ -175,6 +178,7 @@ class BookmarkUpdateForm extends React.Component{
 			query_url: e.target.value,
 		});
 	}
+
 	handleSubmit(e){
 		e.preventDefault();
 		var form = document.forms.bookmarkUpdate;
@@ -202,6 +206,8 @@ class BookmarkUpdateForm extends React.Component{
 		);
 	}
 	updateBookmark(bmToUpdate){
+		console.log("i'm here");
+		this.closingModal();
 		fetch('/api/bookmarks', {
 			method: 'PUT',
 			headers: {'Content-Type': 'application/json' },
@@ -243,7 +249,7 @@ class BookmarkUpdateModal extends React.Component {
 				<button onClick={this.handleOpenModal}>Update {bookmark.name}</button>
 				<ReactModal	isOpen={this.state.showModal} contentLabel="Test123" onRequstClose={this.closeModal}>
 					<button onClick = {this.handleCloseModal}>Close Modal</button>
-					<BookmarkUpdateForm bookmark = {bookmark} />
+					<BookmarkUpdateForm bookmark = {bookmark} closeModal={this.handleCloseModal} />
 				</ReactModal>
 			</div>
 		)

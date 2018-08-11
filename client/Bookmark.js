@@ -284,11 +284,16 @@ var BookmarkUpdateForm = function (_React$Component4) {
 		_this7.handleChangeCommand = _this7.handleChangeCommand.bind(_this7);
 		_this7.handleChangeQuery = _this7.handleChangeQuery.bind(_this7);
 		_this7.updateBookmark = _this7.updateBookmark.bind(_this7);
-
+		_this7.closingModal = _this7.closingModal.bind(_this7);
 		return _this7;
 	}
 
 	_createClass(BookmarkUpdateForm, [{
+		key: "closingModal",
+		value: function closingModal() {
+			this.props.closeModal();
+		}
+	}, {
 		key: "handleChangeName",
 		value: function handleChangeName(e) {
 			this.setState({
@@ -356,6 +361,8 @@ var BookmarkUpdateForm = function (_React$Component4) {
 	}, {
 		key: "updateBookmark",
 		value: function updateBookmark(bmToUpdate) {
+			console.log("i'm here");
+			this.closingModal();
 			fetch('/api/bookmarks', {
 				method: 'PUT',
 				headers: { 'Content-Type': 'application/json' },
@@ -425,7 +432,7 @@ var BookmarkUpdateModal = function (_React$Component5) {
 							{ onClick: this.handleCloseModal },
 							"Close Modal"
 						),
-						React.createElement(BookmarkUpdateForm, { bookmark: bookmark })
+						React.createElement(BookmarkUpdateForm, { bookmark: bookmark, closeModal: this.handleCloseModal })
 					)
 				)
 			);
