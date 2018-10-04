@@ -11,10 +11,10 @@ app.use(bodyParser.json());
 var mongoDbName = config.get('mongoDB.db') || process.env.MONGODB_DB;
 var mongoDbUser = config.get('mongoDB.user') || process.env.MONGODB_USER;
 var mongoDbPassword = config.get('mongoDB.pw') || process.env.MONGODB_PW;
+var mongoDbURL = config.get('mongoDB.url') || process.env.MONGODB_URL;
 
-console.log("Connecting to mongodb withe credentials: " + mongoDbUser + ":" + mongoDbPassword + ":" + mongoDbName);
-var mongoConnect = 'mongodb://'+mongoDbUser+':'+mongoDbPassword+'@ds235411.mlab.com:35411/'+mongoDbName;
-
+var mongoConnect = 'mongodb://'+mongoDbUser+':'+mongoDbPassword+mongoDbURL+mongoDbName;
+console.log("Connecting to mongoDB with:" + mongoConnect);
 //Schemas	
 var Bookmark = require('./schemas/bookmarks');
 

@@ -2,6 +2,7 @@
     "mongoDB": {
         "db":"mlabs db name",
         "user":"mlabs db user",
-        "pw":"mlabs user pw"
+        "pw":"mlabs user pw",
+        "url":"mlabs url in the format @ds#####.mlab.com:####/"
     }
 }

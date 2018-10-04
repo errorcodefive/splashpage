@@ -1,3 +1,4 @@
+process.env.NODE_ENV = 'test';
 var mongoose = require('mongoose');
 var chai = require('chai');
 var chaiHttp = require('chai-http');
