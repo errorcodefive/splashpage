@@ -7,3 +7,9 @@ var server = require('../server');
 var should = chai.should();
 
 chai.use(chaiHttp);
+
+describe('bookmarks', () =>{
+    beforeEach((done)=>{
+        
+    })
+})
