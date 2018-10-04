@@ -12,7 +12,8 @@ var mongoDbName = config.get('mongoDB.db') || process.env.MONGODB_DB;
 var mongoDbUser = config.get('mongoDB.user') || process.env.MONGODB_USER;
 var mongoDbPassword = config.get('mongoDB.pw') || process.env.MONGODB_PW;
 
-var mongoConnect = 'mongodb://'+mongoDbUser+':'+mongoDbPassword+'@ds151070.mlab.com:51070/'+mongoDbName;
+console.log("Connecting to mongodb withe credentials: " + mongoDbUser + ":" + mongoDbPassword + ":" + mongoDbName);
+var mongoConnect = 'mongodb://'+mongoDbUser+':'+mongoDbPassword+'@ds235411.mlab.com:35411/'+mongoDbName;
 
 //Schemas	
 var Bookmark = require('./schemas/bookmarks');
