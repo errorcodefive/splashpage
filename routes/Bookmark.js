@@ -12,13 +12,14 @@ function getBookmarks(req,res){
 
 function postBookmark(req, res){
     console.log("Received POST bookmark request");
+    //console.log("Received request: " + JSON.stringify(req.body));
     var newBookmark = new Bookmark(
         {
             name: req.body.name,
             link: req.body.link
         }
     );
-
+    //console.log("NewBM:" + newBookmark);
     newBookmark.save((err,newbm)=>{
         if(err) res.send(err);
         else{
@@ -29,7 +30,7 @@ function postBookmark(req, res){
 
 function updateBookmark(req, res){
     console.log("Received PUT bookmark request");
-    var updateID = {_id: req.body._id};
+    var updateID = {_id: req.params.id};
     var updateValues = {
         name: req.body.name,
         link: req.body.link,
@@ -44,4 +45,11 @@ function updateBookmark(req, res){
         });
     });
 }
-module.exports = {getBookmarks, postBookmark};
+
+function deleteBookmark(req,res){
+    Bookmark.remove({_id: req.params.id}, (err, result)=>{
+        if(err) res.send(err);
+        res.json({success: true});
+    });
+}
+module.exports = {getBookmarks, postBookmark, updateBookmark, deleteBookmark};
