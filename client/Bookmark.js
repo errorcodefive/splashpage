@@ -162,10 +162,9 @@ var BookmarksList = function (_React$Component2) {
 
 			console.log("Delete ID: " + bookmark._id);
 			if (confirm("Do you want to delete")) {
-				fetch('/api/bookmarks', {
+				fetch('/api/bookmarks/' + bookmark._id, {
 					method: 'DELETE',
-					headers: { 'Content-Type': 'application/json' },
-					body: JSON.stringify(bookmark)
+					headers: { 'Content-Type': 'application/json' }
 				}).then(function (response) {
 					return response.json();
 				}).then(function (response) {
@@ -376,7 +375,7 @@ var BookmarkUpdateForm = function (_React$Component4) {
 		value: function updateBookmark(bmToUpdate) {
 			console.log("i'm here");
 			this.closingModal();
-			fetch('/api/bookmarks', {
+			fetch('/api/bookmarks/' + bmToUpdate._id, {
 				method: 'PUT',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify(bmToUpdate)

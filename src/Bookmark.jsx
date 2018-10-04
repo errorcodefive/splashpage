@@ -72,10 +72,9 @@ class BookmarksList extends React.Component {
 	deleteBookmark(bookmark){
 		console.log("Delete ID: " + bookmark._id);
 		if(confirm("Do you want to delete")){
-			fetch('/api/bookmarks', {
+			fetch('/api/bookmarks/'+bookmark._id, {
 				method: 'DELETE',
-				headers: {'Content-Type': 'application/json' },
-				body: JSON.stringify(bookmark),
+				headers: {'Content-Type': 'application/json' }
 			}).then(response=> response.json()
 			).then(response=>{
 				console.log("HERE:" + JSON.stringify(response));
@@ -217,7 +216,7 @@ class BookmarkUpdateForm extends React.Component{
 	updateBookmark(bmToUpdate){
 		console.log("i'm here");
 		this.closingModal();
-		fetch('/api/bookmarks', {
+		fetch('/api/bookmarks/'+bmToUpdate._id, {
 			method: 'PUT',
 			headers: {'Content-Type': 'application/json' },
 			body: JSON.stringify(bmToUpdate),
