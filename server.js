@@ -17,7 +17,7 @@ var mongoConnect = 'mongodb://'+mongoDbUser+':'+mongoDbPassword+'@ds151070.mlab.
 //Schemas	
 var Bookmark = require('./schemas/bookmarks');
 
-mongoose.connect(mongoConnect).then(
+mongoose.connect(mongoConnect, {userNewUrlParser: true}).then(
 	()=>{
 		console.log("mongoose connected to: " + mongoConnect)
 	},

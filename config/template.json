@@ -1,0 +1,7 @@
+{
+    "mongoDB": {
+        "db":"mlabs db name",
+        "user":"mlabs db user",
+        "pw":"mlabs user pw"
+    }
+}
