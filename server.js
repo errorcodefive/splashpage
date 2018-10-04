@@ -16,8 +16,8 @@ var mongoDbURL = config.get('mongoDB.url') || process.env.MONGODB_URL;
 var mongoConnect = 'mongodb://'+mongoDbUser+':'+mongoDbPassword+mongoDbURL+mongoDbName;
 console.log("Connecting to mongoDB with:" + mongoConnect);
 //Schemas	
-var Bookmark = require('./schemas/bookmarks');
-
+//var Bookmark = require('./schemas/bookmarks');
+var Bookmark = require('./routes/Bookmark');
 mongoose.connect(mongoConnect, {userNewUrlParser: true}).then(
 	()=>{
 		console.log("mongoose connected to: " + mongoConnect)
@@ -28,41 +28,29 @@ mongoose.connect(mongoConnect, {userNewUrlParser: true}).then(
 );
 //var db = mongoose.connection;
 
-app.get('/api/bookmarks', (req, res)=>{
-	console.log("Received GET bookmark request");
+app.route("/api/bookmarks")
+	.get(Bookmark.getBookmarks);
+	//.post(Bookmark.postBookmark);
 
-	Bookmark.find()
-	.then(
-		(bookmarks)=>{
-			return res.json({success: true, data: bookmarks})
-		}
-	)
-	.catch(
-		(err)=>{console.log("err", err)}
-	);
-	//var metadata = { total_count: bookmarks.length };
-	//res.json({ _metadata: metadata, records: bookmarks });
-});
+// app.post('/api/bookmarks', (req, res)=>{
+// 	var newBookmark = new Bookmark(
+// 		{
+// 			name: req.body.name,
+// 			link: req.body.link
+// 		}
+// 	);
+// 	console.log("Received POST bookmark request");
+// 	console.log("Name/URL: " + newBookmark.name + "/" + newBookmark.link);
+// 	//newBookmark.id = bookmarks.length+1;
+// 	console.log("New BM" + JSON.stringify(newBookmark));
+// 	console.log("Created new bookmark");
 
-app.post('/api/bookmarks', (req, res)=>{
-	var newBookmark = new Bookmark(
-		{
-			name: req.body.name,
-			link: req.body.link
-		}
-	);
-	console.log("Received POST bookmark request");
-	console.log("Name/URL: " + newBookmark.name + "/" + newBookmark.link);
-	//newBookmark.id = bookmarks.length+1;
-	console.log("New BM" + JSON.stringify(newBookmark));
-	console.log("Created new bookmark");
-
-	newBookmark.save().then(
-		()=>{return res.json({success: true})}
-	).catch(
-		(err)=>{console.log("err",err)}
-	);
-});
+// 	newBookmark.save().then(
+// 		()=>{return res.json({success: true})}
+// 	).catch(
+// 		(err)=>{console.log("err",err)}
+// 	);
+// });
 
 app.put('/api/bookmarks', (req, res) =>{
 	console.log('Received Update Bookmark Request');
