@@ -47,7 +47,8 @@ function updateBookmark(req, res){
 }
 
 function deleteBookmark(req,res){
-    Bookmark.remove({_id: req.params.id}, (err, result)=>{
+    console.log("Received DELETE bookmark request");
+    Bookmark.deleteOne({_id: req.params.id}, (err, result)=>{
         if(err) res.send(err);
         res.json({success: true});
     });
