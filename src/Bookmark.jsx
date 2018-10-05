@@ -56,7 +56,7 @@ const BookmarkRow = (props)=>{
 		<td>{props.bookmark.name}</td>
 		<td><BookmarksLink bookmark={props.bookmark} /></td>
 		<td><button onClick={()=>props.deleteBookmark(props.bookmark)}>X</button></td>
-		<td><BookmarkUpdateModal bookmark={props.bookmark} loadData={props.loadData} /></td>
+		<td><BookmarkUpdateModal bookmark={props.bookmark} loadData={props.loadData}/></td>
 		</tr>
 		);
 };
@@ -122,7 +122,7 @@ class BookmarksList extends React.Component {
 			<div>
 			<h1>Bookmarks</h1>
 			<hr />
-			<BookmarksTable bookmarks={this.state.bookmarks} deleteBookmark={this.deleteBookmark} loadData={this.forceChange}/>
+			<BookmarksTable bookmarks={this.state.bookmarks} deleteBookmark={this.deleteBookmark} loadData = {this.loadData}/>
 			<hr />
 			<BookmarkAdd createBookmark={this.createBookmark} />
 			</div>
@@ -158,6 +158,7 @@ class BookmarkUpdateForm extends React.Component{
 		this.updateBookmark = this.updateBookmark.bind(this);
 		this.closingModal = this.closingModal.bind(this);
 		this.myOnSubmit = this.myOnSubmit.bind(this);
+		this.loadData = this.props.loadData.bind(this);
 	}
 	closingModal(){
 		this.props.closeModal();
@@ -184,6 +185,7 @@ class BookmarkUpdateForm extends React.Component{
 	}
 
 	handleSubmit(e){
+		console.log("I am in the handlesubmit");
 		e.preventDefault();
 		var form = document.forms.bookmarkUpdate;
 		this.updateBookmark({
@@ -193,10 +195,14 @@ class BookmarkUpdateForm extends React.Component{
 			command: form.command.value,
 			query_url: form.query_url.value,
 		});
+		return new Promise(function(resolve, reject){
+			console.log("I am inside the promise of handlesubmit");
+			this.loadData();
+		});
 	}
 	myOnSubmit(e){
+		console.log("I am inside the myOnSubmit");
 		this.handleSubmit(e);
-		this.loadData();
 	}
 	render(){
 		var bookmark = this.props.bookmark;
@@ -214,7 +220,6 @@ class BookmarkUpdateForm extends React.Component{
 		);
 	}
 	updateBookmark(bmToUpdate){
-		console.log("i'm here");
 		this.closingModal();
 		fetch('/api/bookmarks/'+bmToUpdate._id, {
 			method: 'PUT',
@@ -223,7 +228,6 @@ class BookmarkUpdateForm extends React.Component{
 		}).then(response=>response.json()
 		).then(response=>{
 			console.log("Received response from bookmark PUT: " + JSON.stringify(response));
-			console.log("about to update bookmarks");
 		});
 	}
 	

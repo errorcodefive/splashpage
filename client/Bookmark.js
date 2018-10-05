@@ -233,7 +233,7 @@ var BookmarksList = function (_React$Component2) {
 					"Bookmarks"
 				),
 				React.createElement("hr", null),
-				React.createElement(BookmarksTable, { bookmarks: this.state.bookmarks, deleteBookmark: this.deleteBookmark, loadData: this.forceChange }),
+				React.createElement(BookmarksTable, { bookmarks: this.state.bookmarks, deleteBookmark: this.deleteBookmark, loadData: this.loadData }),
 				React.createElement("hr", null),
 				React.createElement(BookmarkAdd, { createBookmark: this.createBookmark })
 			);
@@ -291,6 +291,7 @@ var BookmarkUpdateForm = function (_React$Component4) {
 		_this7.updateBookmark = _this7.updateBookmark.bind(_this7);
 		_this7.closingModal = _this7.closingModal.bind(_this7);
 		_this7.myOnSubmit = _this7.myOnSubmit.bind(_this7);
+		_this7.loadData = _this7.props.loadData.bind(_this7);
 		return _this7;
 	}
 
@@ -330,6 +331,7 @@ var BookmarkUpdateForm = function (_React$Component4) {
 	}, {
 		key: "handleSubmit",
 		value: function handleSubmit(e) {
+			console.log("I am in the handlesubmit");
 			e.preventDefault();
 			var form = document.forms.bookmarkUpdate;
 			this.updateBookmark({
@@ -339,12 +341,16 @@ var BookmarkUpdateForm = function (_React$Component4) {
 				command: form.command.value,
 				query_url: form.query_url.value
 			});
+			return new Promise(function (resolve, reject) {
+				console.log("I am inside the promise of handlesubmit");
+				this.loadData();
+			});
 		}
 	}, {
 		key: "myOnSubmit",
 		value: function myOnSubmit(e) {
+			console.log("I am inside the myOnSubmit");
 			this.handleSubmit(e);
-			this.loadData();
 		}
 	}, {
 		key: "render",
@@ -373,7 +379,6 @@ var BookmarkUpdateForm = function (_React$Component4) {
 	}, {
 		key: "updateBookmark",
 		value: function updateBookmark(bmToUpdate) {
-			console.log("i'm here");
 			this.closingModal();
 			fetch('/api/bookmarks/' + bmToUpdate._id, {
 				method: 'PUT',
@@ -383,7 +388,6 @@ var BookmarkUpdateForm = function (_React$Component4) {
 				return response.json();
 			}).then(function (response) {
 				console.log("Received response from bookmark PUT: " + JSON.stringify(response));
-				console.log("about to update bookmarks");
 			});
 		}
 	}]);
