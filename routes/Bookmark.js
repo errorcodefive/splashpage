@@ -23,7 +23,7 @@ function postBookmark(req, res){
     newBookmark.save((err,newbm)=>{
         if(err) res.send(err);
         else{
-            res.json({success: true});
+            res.json({success: true, data: newbm});
         }
     });
 }

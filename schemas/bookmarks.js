@@ -3,8 +3,8 @@ var Schema = mongoose.Schema;
 
 var bookmarkSchema = new Schema({
 	//id: Number,
-	name: String,
-	link: String,
+	name: {type: String, required: true},
+	link: {type: String, required: true},
 	order: {
 		type: Number
 	},
