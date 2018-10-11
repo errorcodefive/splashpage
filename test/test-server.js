@@ -24,7 +24,6 @@ describe('bookmarks', () =>{
             chai.request(server)
                 .get('/api/bookmarks')
                 .end((err,res)=>{
-                    console.log(res.body);
                     res.should.have.status(200);
                     res.body.should.be.an('object');
                     res.body.data.length.should.be.eql(0);
@@ -85,6 +84,27 @@ describe('bookmarks', () =>{
                     done();
                 });
             });
+        });
+        it('it should NOT UPDATE a bookmark with the duplicate command', (done)=>{
+            let bookmark = new Bookmark({name: "first_name", link: 'first_link', command: "first_command"});
+            let bookmark2 = new Bookmark({name: "second_name", link: "second_link"});
+            bookmark.save((err, bookmark)=>{
+                chai.request(server)
+                .put('/api/bookmarks/'+bookmark.id)
+                .end()
+            });
+            bookmark2.save((err, bookmark2)=>{
+                chai.request(server)
+                .put('/api/bookmarks/'+bookmark2.id)
+                .send({command: "first_command"})
+                .end((err,res)=>{
+                    res.should.have.status(200);
+                    done();
+                });
+            });
+        });
+        it('it should NOT UPDATE a bookmark with duplicate query_url', (done)=>{
+
         });
     });
     describe('/DELETE Bookmark', ()=>{

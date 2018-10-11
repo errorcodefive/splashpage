@@ -185,9 +185,9 @@ class BookmarkUpdateForm extends React.Component{
 	}
 
 	handleSubmit(e){
-		console.log("I am in the handlesubmit");
 		e.preventDefault();
 		var form = document.forms.bookmarkUpdate;
+
 		this.updateBookmark({
 			_id: this.props.bookmark._id,
 			name: form.name.value,
@@ -195,13 +195,8 @@ class BookmarkUpdateForm extends React.Component{
 			command: form.command.value,
 			query_url: form.query_url.value,
 		});
-		return new Promise(function(resolve, reject){
-			console.log("I am inside the promise of handlesubmit");
-			this.loadData();
-		});
 	}
 	myOnSubmit(e){
-		console.log("I am inside the myOnSubmit");
 		this.handleSubmit(e);
 	}
 	render(){
@@ -228,6 +223,8 @@ class BookmarkUpdateForm extends React.Component{
 		}).then(response=>response.json()
 		).then(response=>{
 			console.log("Received response from bookmark PUT: " + JSON.stringify(response));
+		}).then(response=>{
+			this.loadData();
 		});
 	}
 	

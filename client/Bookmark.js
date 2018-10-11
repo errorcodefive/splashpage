@@ -331,9 +331,9 @@ var BookmarkUpdateForm = function (_React$Component4) {
 	}, {
 		key: "handleSubmit",
 		value: function handleSubmit(e) {
-			console.log("I am in the handlesubmit");
 			e.preventDefault();
 			var form = document.forms.bookmarkUpdate;
+
 			this.updateBookmark({
 				_id: this.props.bookmark._id,
 				name: form.name.value,
@@ -341,15 +341,10 @@ var BookmarkUpdateForm = function (_React$Component4) {
 				command: form.command.value,
 				query_url: form.query_url.value
 			});
-			return new Promise(function (resolve, reject) {
-				console.log("I am inside the promise of handlesubmit");
-				this.loadData();
-			});
 		}
 	}, {
 		key: "myOnSubmit",
 		value: function myOnSubmit(e) {
-			console.log("I am inside the myOnSubmit");
 			this.handleSubmit(e);
 		}
 	}, {
@@ -379,6 +374,8 @@ var BookmarkUpdateForm = function (_React$Component4) {
 	}, {
 		key: "updateBookmark",
 		value: function updateBookmark(bmToUpdate) {
+			var _this8 = this;
+
 			this.closingModal();
 			fetch('/api/bookmarks/' + bmToUpdate._id, {
 				method: 'PUT',
@@ -388,6 +385,8 @@ var BookmarkUpdateForm = function (_React$Component4) {
 				return response.json();
 			}).then(function (response) {
 				console.log("Received response from bookmark PUT: " + JSON.stringify(response));
+			}).then(function (response) {
+				_this8.loadData();
 			});
 		}
 	}]);
@@ -401,15 +400,15 @@ var BookmarkUpdateModal = function (_React$Component5) {
 	function BookmarkUpdateModal() {
 		_classCallCheck(this, BookmarkUpdateModal);
 
-		var _this8 = _possibleConstructorReturn(this, (BookmarkUpdateModal.__proto__ || Object.getPrototypeOf(BookmarkUpdateModal)).call(this));
+		var _this9 = _possibleConstructorReturn(this, (BookmarkUpdateModal.__proto__ || Object.getPrototypeOf(BookmarkUpdateModal)).call(this));
 
-		_this8.state = {
+		_this9.state = {
 			showModal: false
 		};
-		_this8.handleOpenModal = _this8.handleOpenModal.bind(_this8);
+		_this9.handleOpenModal = _this9.handleOpenModal.bind(_this9);
 		//this.afterOpenModal = this.afterOpenModal.bind(this);
-		_this8.handleCloseModal = _this8.handleCloseModal.bind(_this8);
-		return _this8;
+		_this9.handleCloseModal = _this9.handleCloseModal.bind(_this9);
+		return _this9;
 	}
 
 	_createClass(BookmarkUpdateModal, [{
