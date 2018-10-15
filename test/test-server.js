@@ -9,24 +9,42 @@ var should = chai.should();
 var Bookmark = require('../schemas/bookmarks');
 
 chai.use(chaiHttp);
-
 //variables for tests here
-
+var bm_test1 = {
+    name: "dummy_bm_1",
+    link: "dumm_link_1",
+    command: "command_1"
+}
+var bm_test2 = {
+    name: "dummy_bm_2",
+    link: "dummy_link_2",
+    command: "command_2"
+}
 
 describe('bookmarks', () =>{
     beforeEach((done)=>{
-       Bookmark.remove({}, (err)=>{
-           done();
-       });
+        Bookmark.remove({}, err=>{
+            let bookmark1 = new Bookmark(bm_test1);
+            let bookmark2 = new Bookmark(bm_test2);
+            bookmark1.save((err,res)=>{
+                console.log("bm1res: " + JSON.stringify(res));
+                bookmark2.save((err2,res2)=>{
+                    if(err2) console.log("ERR bm2: " + err2);
+                    console.log("bm2res: " + JSON.stringify(res2));
+                    done();
+                })
+            });
+        });
     });
     describe('/GET Bookmarks', ()=>{
         it('it should GET all Bookmarks', (done)=>{
             chai.request(server)
                 .get('/api/bookmarks')
                 .end((err,res)=>{
+                    console.log("GET" + JSON.stringify(res.body.data));
                     res.should.have.status(200);
                     res.body.should.be.an('object');
-                    res.body.data.length.should.be.eql(0);
+                    res.body.data.length.should.be.eql(2);
                     res.body.success.should.be.true;
                 done();
             });
@@ -85,40 +103,22 @@ describe('bookmarks', () =>{
                 });
             });
         });
-        it('it should NOT UPDATE a bookmark with the duplicate command', (done)=>{
-            let bookmark = new Bookmark({name: "first_name", link: 'first_link', command: "first_command"});
-            let bookmark2 = new Bookmark({name: "second_name", link: "second_link"});
-            bookmark.save((err, bookmark)=>{
-                chai.request(server)
-                .put('/api/bookmarks/'+bookmark.id)
-                .end()
-            });
-            bookmark2.save((err, bookmark2)=>{
-                chai.request(server)
-                .put('/api/bookmarks/'+bookmark2.id)
-                .send({command: "first_command"})
-                .end((err,res)=>{
-                    res.should.have.status(200);
-                    done();
-                });
-            });
-        });
-        it('it should NOT UPDATE a bookmark with duplicate query_url', (done)=>{
-
-        });
     });
     describe('/DELETE Bookmark', ()=>{
         it('it should DELETE a bookmark with a given ID', (done)=>{
-            let bookmark = new Bookmark({name: 'firstname', link: 'firstlink'});
-            bookmark.save((err, bookmark)=>{
+            console.log("inside the delete");
+            chai.request(server)
+            .get('/api/bookmarks/')
+            .then((res)=>{
+                console.log("res: "+ JSON.stringify(res.body.data))
                 chai.request(server)
-                .delete('/api/bookmarks/'+bookmark.id)
-                .end((err, res)=>{
+                .delete('/api/bookmarks/'+res.body.data[0]._id)
+                .end((err,res)=>{
                     res.should.have.status(200);
                     res.body.should.have.property('success').be.true;
                     done();
-                });
-            });
+                })
+            })
         });
     });
 })

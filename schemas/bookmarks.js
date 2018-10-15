@@ -8,8 +8,8 @@ var bookmarkSchema = new Schema({
 	order: {
 		type: Number
 	},
-	command: String,
-	query_url: String
+	command: {type: String},
+	query_url: {type: String}
 });
 
 module.exports = mongoose.model ('Bookmark', bookmarkSchema);

@@ -18,7 +18,7 @@ var mongoConnect = 'mongodb://'+mongoDbUser+':'+mongoDbPassword+mongoDbURL+mongo
 console.log("Connecting to mongoDB with:" + mongoConnect);
 //Routes
 var Bookmark = require('./routes/Bookmark');
-mongoose.connect(mongoConnect, {userNewUrlParser: true}).then(
+mongoose.connect(mongoConnect, { useNewUrlParser: true }).then(
 	()=>{
 		console.log("mongoose connected to: " + mongoConnect)
 	},
