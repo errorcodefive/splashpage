@@ -5,3 +5,4 @@ node_modules
 .nyc_output/
 /coverage
 .vscode/settings.json
+splashpage.code-workspace

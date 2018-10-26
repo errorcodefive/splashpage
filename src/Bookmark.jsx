@@ -265,5 +265,4 @@ class BookmarkUpdateModal extends React.Component {
 		)
 	}	
 }
-
 ReactDOM.render(<BookmarksList />, contentNode);
