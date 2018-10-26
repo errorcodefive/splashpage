@@ -1,3 +1,6 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+
 var contentNode = document.getElementById('bookmarksMain');
 
 function BookmarksTable(props){
@@ -266,3 +269,5 @@ class BookmarkUpdateModal extends React.Component {
 	}	
 }
 ReactDOM.render(<BookmarksList />, contentNode);
+
+export default BookmarksList

@@ -6,3 +6,4 @@ node_modules
 /coverage
 .vscode/settings.json
 splashpage.code-workspace
+webpack-stats.json
