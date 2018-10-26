@@ -9,6 +9,8 @@ var _react = _interopRequireDefault(require("react"));
 
 var _reactDom = _interopRequireDefault(require("react-dom"));
 
+var _reactModal = _interopRequireDefault(require("react-modal"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -425,7 +427,7 @@ function (_React$Component5) {
       return (//render a bookmark row + an update button
         _react.default.createElement("div", null, _react.default.createElement("button", {
           onClick: this.handleOpenModal
-        }, "Update ", bookmark.name), _react.default.createElement(ReactModal, {
+        }, "Update ", bookmark.name), _react.default.createElement(_reactModal.default, {
           isOpen: this.state.showModal,
           contentLabel: "Test123",
           onRequstClose: this.closeModal

@@ -24,5 +24,10 @@ module.exports={
             template: "./client/index.html",
             filename: "./index.html"
         })
-    ]
+    ],
+    devServer:{
+        proxy:{
+            '/api':'http://localhost:3000'
+        }
+    }
 }

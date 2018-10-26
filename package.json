@@ -11,7 +11,7 @@
     "watch": "babel src --presets @babel/react,@babel/preset-env --out-dir client --watch",
     "start": "SET NODE_ENV=development&& nodemon -w server.js server.js",
     "webpack_build": "webpack --mode production",
-    "webpack_start": "webpack-dev-server --open --mode development"
+    "webpack_start": "webpack-dev-server --port 8080 -d --open --mode development"
   },
   "repository": {
     "type": "git",
