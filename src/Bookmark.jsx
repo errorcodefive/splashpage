@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactModal from 'react-modal';
+import {NotificationManager, NotificationContainer} from 'react-notifications';
 
 var contentNode = document.getElementById('bookmarksMain');
 
@@ -129,6 +130,8 @@ class BookmarksList extends React.Component {
 			<BookmarksTable bookmarks={this.state.bookmarks} deleteBookmark={this.deleteBookmark} loadData = {this.loadData}/>
 			<hr />
 			<BookmarkAdd createBookmark={this.createBookmark} />
+			<hr />
+			<BookmarkNotification />
 			</div>
 			);
 	}
@@ -247,9 +250,6 @@ class BookmarkUpdateModal extends React.Component {
 	handleOpenModal(){
 		this.setState({showModal: true});
 	}
-	// afterOpenModal(){
-	// 	this.
-	// }
 
 	handleCloseModal(){
 		this.setState({showModal: false});
@@ -268,6 +268,25 @@ class BookmarkUpdateModal extends React.Component {
 			</div>
 		)
 	}	
+}
+
+class BookmarkNotification extends React.Component{
+	constructor(){
+		super();
+		//this.createNotifcation = this.createNotification.bind(this);
+	}
+	createNotification = type =>{
+		console.log('info button clicked type is: ' + type);
+		NotificationManager.info('info message');
+	}
+	render(){
+		return(
+			<div>
+				<button onClick={()=> {this.createNotification('info')}}>Info</button>
+				<NotificationContainer />
+			</div>
+		)
+	}
 }
 ReactDOM.render(<BookmarksList />, contentNode);
 

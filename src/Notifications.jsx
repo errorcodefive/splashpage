@@ -50,5 +50,5 @@ class NotificationComponent extends React.Component {
       );
     }
   }
-ReactDOM.render(<NotificationComponent />, contentNode);
-export default NotificationComponent;
+//ReactDOM.render(<NotificationComponent />, contentNode);
+//export default NotificationComponent;
