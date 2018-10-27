@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactModal from 'react-modal';
+
 var contentNode = document.getElementById('bookmarksMain');
 
 function BookmarksTable(props){
