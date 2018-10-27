@@ -131,7 +131,7 @@ class BookmarksList extends React.Component {
 			<hr />
 			<BookmarkAdd createBookmark={this.createBookmark} />
 			<hr />
-			<BookmarkNotification />
+			<BookmarkNotification notification_type = {"Info"} notification_message={"random words"}/>
 			</div>
 			);
 	}
@@ -273,16 +273,15 @@ class BookmarkUpdateModal extends React.Component {
 class BookmarkNotification extends React.Component{
 	constructor(){
 		super();
-		//this.createNotifcation = this.createNotification.bind(this);
 	}
-	createNotification = type =>{
+	createNotification = (type, message) =>{
 		console.log('info button clicked type is: ' + type);
-		NotificationManager.info('info message');
-	}
+		NotificationManager.info(message);
+	}	
 	render(){
 		return(
 			<div>
-				<button onClick={()=> {this.createNotification('info')}}>Info</button>
+				<button onClick={()=> {this.createNotification(this.props.notification_type, this.props.notification_message)}}>Test button</button>
 				<NotificationContainer />
 			</div>
 		)
