@@ -2,6 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import BookmarksList from "./Bookmark.jsx";
 import ClocksMain from "./Clock.jsx";
+import DatesMain from "./Date.jsx";
+
 //import NotificationComponent from './Notifications.jsx';
 import "./styles/notifications.css";
 

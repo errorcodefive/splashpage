@@ -73,12 +73,6 @@ class TimeZoneSelector extends React.Component {
     );
   }
 }
-class DateField extends React.Component {}
-class MarketTime extends React.Component {}
-class AlarmsMain extends React.Component {}
-class AlarmTable extends React.Component {}
-class AlarmRow extends React.Component {}
-class AlarmEditModal extends React.Component {}
-class AlarmEditor extends React.Component {}
+
 ReactDOM.render(<ClocksMain />, contentNode);
 export default ClocksMain;
