@@ -12,7 +12,6 @@ class ClocksMain extends React.Component {
     var timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
     console.log("Time zone is: " + timezone);
     this.state = { activetimezone: timezone };
-
     this.handleTimeZoneChange = this.handleTimeZoneChange.bind(this);
   }
   handleTimeZoneChange(e) {
@@ -24,6 +23,7 @@ class ClocksMain extends React.Component {
   render() {
     return (
       <div>
+        <DateDisp timezone={this.state.activetimezone} />
         <ClockTime timezone={this.state.activetimezone} handleTimeZoneChange={this.handleTimeZoneChange}/>
       </div>
     );
@@ -43,6 +43,16 @@ class ClockTime extends React.Component {
         <TimeZoneSelector timezone={this.props.timezone} handleTimeZoneChange={this.props.handleTimeZoneChange}/>
       </div>
     );
+  }
+}
+class DateDisp extends React.Component{
+  constructor(props){
+    super(props);
+  }
+  render(){
+    return (
+      <Clock timezone={this.props.timezone} format={'dddd, MMMM Do'} />
+    )
   }
 }
 class TimeZoneSelector extends React.Component {
