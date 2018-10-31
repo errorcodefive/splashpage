@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 var path = require('path');
 
 var app = express();
-console.log("using: " + __dirname+"/client");
+console.log("using: " + __dirname+'/client');
 app.use(express.static(__dirname+'/client'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -37,8 +37,9 @@ app.route("/api/bookmarks/:id")
 	.delete(Bookmark.deleteBookmark);
 
 // This is a catchall for all other route cases
+console.log("sendFile path: " + __dirname+'client/index.html');
 app.get('*', (req,res)=>{
-	res.sendfile(path.resolve(__dirname,'client/index.html'));
+	res.sendFile(path.resolve(__dirname,'client/index.html'));
 });
 
 module.exports = app.listen(process.env.PORT || 3000, function(){
