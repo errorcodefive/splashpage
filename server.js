@@ -34,6 +34,6 @@ app.route("/api/bookmarks/:id")
 	.put(Bookmark.updateBookmark)
 	.delete(Bookmark.deleteBookmark);
 
-module.exports = app.listen(3000, function(){
-	console.log('App started on port 3000');
+module.exports = app.listen(8080, function(){
+	console.log('App started on port 8080');
 });
