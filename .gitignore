@@ -1,2 +1,9 @@
 /config/default.json
-node_modules/
+/config/test.json
+/config/development.json
+node_modules
+.nyc_output/
+/coverage
+.vscode/settings.json
+splashpage.code-workspace
+webpack-stats.json
