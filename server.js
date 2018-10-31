@@ -4,7 +4,8 @@ var config = require('config');
 var mongoose = require('mongoose');
 
 var app = express();
-app.use(express.static('client'));
+console.log("using: " + __dirname+"client");
+app.use(express.static(__dirname+'client'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 console.log("Begin config var loading:");
@@ -33,6 +34,11 @@ app.route("/api/bookmarks")
 app.route("/api/bookmarks/:id")
 	.put(Bookmark.updateBookmark)
 	.delete(Bookmark.deleteBookmark);
+
+// This is a catchall for all other route cases
+app.get('*', (req,res)=>{
+	res.sendfile(path.resolve(__dirname,'client/index.html'));
+});
 
 module.exports = app.listen(process.env.PORT || 3000, function(){
 	console.log('App started on port:'+process.env.port +'or 3000');
