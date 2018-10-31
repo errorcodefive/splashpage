@@ -2,10 +2,11 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var config = require('config');
 var mongoose = require('mongoose');
+var path = require('path');
 
 var app = express();
-console.log("using: " + __dirname+"client");
-app.use(express.static(__dirname+'client'));
+console.log("using: " + __dirname+"/client");
+app.use(express.static(__dirname+'/client'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 console.log("Begin config var loading:");
