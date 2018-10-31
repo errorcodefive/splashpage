@@ -9,10 +9,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 console.log("Begin config var loading:");
 //connect to mongodb
-var mongoDbName = process.env.MONGODB_DB || config.get('mongoDB.db');
-var mongoDbUser = process.env.MONGODB_USER || config.get('mongoDB.user')
-var mongoDbPassword =process.env.MONGODB_PW || config.get('mongoDB.pw') ;
-var mongoDbURL = process.env.MONGODB_URL || config.get('mongoDB.url');
+var mongoDbName = process.env.MONGODB_DB;
+var mongoDbUser = process.env.MONGODB_USER;
+var mongoDbPassword =process.env.MONGODB_PW;
+var mongoDbURL = process.env.MONGODB_URL;
 
 var mongoConnect = 'mongodb://'+mongoDbUser+':'+mongoDbPassword+mongoDbURL+mongoDbName;
 console.log("Connecting to mongoDB with:" + mongoConnect);
