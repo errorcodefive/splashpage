@@ -12,7 +12,9 @@ app.use(bodyParser.urlencoded({extended: true}));
 console.log("Begin config var loading:");
 
 //connect to mongodb
+console.log("The NODE_ENV is: " + process.env.NODE_ENV);
 if (process.env.NODE_ENV = "development") {
+	
 	var mongoDbName = config.mongoDB.db;
 	var mongoDbUser = config.mongoDB.user;
 	var mongoDbPassword = config.mongoDB.pw;
