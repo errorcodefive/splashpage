@@ -10,11 +10,19 @@ app.use(express.static(__dirname+'/dist'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 console.log("Begin config var loading:");
+
 //connect to mongodb
-var mongoDbName = process.env.MONGODB_DB;
-var mongoDbUser = process.env.MONGODB_USER;
-var mongoDbPassword =process.env.MONGODB_PW;
-var mongoDbURL = process.env.MONGODB_URL;
+if (process.env.NODE_ENV = "development") {
+	var mongoDbName = config.mongoDB.db;
+	var mongoDbUser = config.mongoDB.user;
+	var mongoDbPassword = config.mongoDB.pw;
+	var mongoDbURL = config.mongoDB.url;
+} else {
+	var mongoDbName = process.env.MONGODB_DB;
+	var mongoDbUser = process.env.MONGODB_USER;
+	var mongoDbPassword = process.env.MONGODB_PW;
+	var mongoDbURL = process.env.MONGODB_URL;
+}
 
 var mongoConnect = 'mongodb://'+mongoDbUser+':'+mongoDbPassword+mongoDbURL+mongoDbName;
 console.log("Connecting to mongoDB with:" + mongoConnect);
@@ -22,7 +30,7 @@ console.log("Connecting to mongoDB with:" + mongoConnect);
 var Bookmark = require('./routes/Bookmark');
 mongoose.connect(mongoConnect, { useNewUrlParser: true }).then(
 	()=>{
-		console.log("mongoose connected to: " + mongoConnect)
+		console.log("Mongoose connected successfully to: " + mongoConnect)
 	},
 	err=>{
 		console.log('err', err);
@@ -37,11 +45,10 @@ app.route("/api/bookmarks/:id")
 	.delete(Bookmark.deleteBookmark);
 
 // This is a catchall for all other route cases
-console.log("sendFile path: " + __dirname+'/dist/index.html');
 app.get('*', (req,res)=>{
 	res.sendFile(path.resolve(__dirname,'/dist/index.html'));
 });
 
 module.exports = app.listen(process.env.PORT || 3000, function(){
-	console.log('App started on port:'+process.env.port +'or 3000');
+	console.log('App started on port: '+process.env.port +' or 3000');
 });
