@@ -7,3 +7,4 @@ node_modules
 .vscode/settings.json
 splashpage.code-workspace
 webpack-stats.json
+splashpage-workspace.code-workspace

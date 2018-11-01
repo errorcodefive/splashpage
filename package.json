@@ -40,7 +40,8 @@
     "react-live-clock": "^2.0.3",
     "react-modal": "^3.6.1",
     "react-notifications": "^1.4.3",
-    "react-timezone": "^2.1.0"
+    "react-timezone": "^2.1.0",
+    "s3": "^4.4.0"
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.1.0",

@@ -33,7 +33,7 @@ mongoose.connect(mongoConnect, { useNewUrlParser: true }).then(
 		console.log("Mongoose connected successfully to: " + mongoConnect)
 	},
 	err=>{
-		console.log('err', err);
+		console.log('ERROR: Mongoose did not connect.', err);
 	}
 );
 
