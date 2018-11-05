@@ -4,6 +4,7 @@ var config = require('config');
 var mongoose = require('mongoose');
 var path = require('path');
 
+
 var app = express();
 console.log("using: " + __dirname+'/dist');
 app.use(express.static(__dirname+'/dist'));
