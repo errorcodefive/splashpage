@@ -10,7 +10,7 @@ var bookmarkSchema = new Schema({
 	},
 	command: {type: String},
 	query_url: {type: String},
-	s3_id: {type: String}
+	ico_link: {type: String}
 });
 
 module.exports = mongoose.model ('Bookmark', bookmarkSchema);

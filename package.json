@@ -29,6 +29,7 @@
     "@babel/cli": "^7.1.2",
     "@babel/core": "^7.1.2",
     "@babel/preset-react": "^7.0.0",
+    "aws-sdk": "^2.348.0",
     "body-parser": "^1.18.3",
     "config": "^1.31.0",
     "express": "^4.16.4",
@@ -41,7 +42,7 @@
     "react-modal": "^3.6.1",
     "react-notifications": "^1.4.3",
     "react-timezone": "^2.1.0",
-    "s3": "^4.4.0"
+    "request": "^2.88.0"
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.1.0",
