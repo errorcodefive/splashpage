@@ -10,11 +10,16 @@ console.log("using: " + __dirname+'/dist');
 app.use(express.static(__dirname+'/dist'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+
+console.log("Checking if development or production:");
+process_env = process.env.NODE_ENV || 'development';
+console.log("The environment is: " + process_env);
+
 console.log("Begin config var loading:");
 
 //connect to mongodb
-console.log("The NODE_ENV is: " + process.env.NODE_ENV);
-if (process.env.NODE_ENV == "development") {
+
+if (process_env == "development") {
 	
 	var mongoDbName = config.mongoDB.db;
 	var mongoDbUser = config.mongoDB.user;
