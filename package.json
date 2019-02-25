@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "splashpage",
   "main": "server.js",
-  "engines":{
-    "node":"10.15.1"
+  "engines": {
+    "node": "10.15.1"
   },
   "scripts": {
     "watch_test": "nyc --reporter=lcov mocha test/test-server.js -w --require babel-register --exit",
