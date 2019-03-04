@@ -4,5 +4,11 @@
         "user":"mlabs db user",
         "pw":"mlabs user pw",
         "url":"mlabs url in the format @ds#####.mlab.com:#####/"
+    },
+    "aws":{
+        "key":"aws key",
+        "secret":"aws secret key",
+        "bucket":"aws bucket name",
+        "region":"aws bucket region"
     }
 }

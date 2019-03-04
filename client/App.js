@@ -6,14 +6,17 @@ var _reactDom = _interopRequireDefault(require("react-dom"));
 
 var _Bookmark = _interopRequireDefault(require("./Bookmark.jsx"));
 
-var _Notifications = _interopRequireDefault(require("./Notifications.jsx"));
+var _Clock = _interopRequireDefault(require("./Clock.jsx"));
+
+var _Date = _interopRequireDefault(require("./Date.jsx"));
+
+var _Users = _interopRequireDefault(require("./Users.jsx"));
 
 require("./styles/notifications.css");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var contentNode = document.getElementById('contents');
-
-_reactDom.default.render(_react.default.createElement(_Notifications.default, null), contentNode);
-
-_reactDom.default.render(_react.default.createElement(_Bookmark.default, null), contentNode); //ReactDOM.render(<FlashTest />, contentNode);
+//import NotificationComponent from './Notifications.jsx';
+var contentNode = document.getElementById("contents"); //ReactDOM.render(<NotificationComponent />, contentNode);
+//ReactDOM.render(<BookmarksList />, contentNode);
+//ReactDOM.render(<FlashTest />, contentNode);

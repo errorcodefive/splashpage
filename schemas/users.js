@@ -6,13 +6,15 @@ var userSchema = new Schema({
     username: {type: String, required: true},
     password: {type: String, required: true}
 });
-
-UserSchema.methods.generateHash = function(password) {
-    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
-  };
+//unsure if i need this since I'll be creating the hashes online anyways
+// UserSchema.methods.generateHash = function(password) {
+//     return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+// };
   
-  UserSchema.methods.validPassword = function(password) {
-    return bcrypt.compareSync(password, this.password);
-  };
+userSchema.methods.validPassword = function(password) {
+    console.log("comparing passwords:");
+    console.log(password + ":"+this.password);
+    return bcrypt.compare(this.password, password);
+};
   
 module.exports = mongoose.model('User', userSchema);

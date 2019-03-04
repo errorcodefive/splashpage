@@ -1,16 +1,15 @@
 var mongoose = require('mongoose');
-var User = require('../schemas/bookmarks');
+var User = require('../schemas/users');
 
 module.exports = (app) => {
-    app.post('/api/user/signup', (req,res,next)=>{
-        var { body } = req;
-        var { password } = body;
-        let {
-            email
-        } = body;
-        if(!email){
+    app.post('/api/users/signin', (req,res)=>{
+        console.log("received POST /api/user/signin");
+        var username = req.body.username;
+        var password = req.body.password;
+
+        if(!username){
             return res.send({ success: false,
-            message: 'Error: Email cannot be blank.'
+            message: 'Error: Username cannot be blank.'
             });
         }
         if(!password){
@@ -19,38 +18,47 @@ module.exports = (app) => {
                 message: 'Error: Password cannot be blank.'
             });
         }
-        email = email.toLowerCase();
-        email = email.trim();
-        //Verify user doesnt exist already
+        username = username.trim();
+        //find user via username
         User.find({
-            email:email
-        }, (err, prevUser) =>{
+            username: username
+        }, (err,users)=>{
             if(err){
+                console.log("Error finding user." + err);
                 return res.send({
-                    success: false, 
-                    message: 'Error: Server error'
-                });
-            } else if (prevUser.length>0){
-                return res.send({
-                    success: false,
-                    message: 'Error: Email already exists.'
+                    success:false,
+                    message: 'Error finding user.'
                 });
             }
-            var newUser = new User();
-            newUser.email = email;
-            newUser.password = newUser.generateHash(password);
-            newUser.save((err,user)=>{
-                if(err){
-                    return res.send({
-                        success: false,
-                        message: 'Error: User could not be saved'
-                    });
-                }
+            if(users.length !=1){
+                console.log("Error finding user." + err);
                 return res.send({
-                    success: true,
-                    message: 'Successfully signed up'
-                });
-            });
-        });
+                    success:false,
+                    message: "Error finding user."
+                })
+            }
+            var foundUser=users[0];
+            if(!foundUser.validPassword(password)){
+                console.log("Password does not match");
+                return res.send({
+                    success:false,
+                    message: "Password does not match"
+                })
+            }
+            //otherwise login is all good
+            console.log("User and Password is good");
+            return(res.send({
+                success:true,
+                message: "Authenticated"
+            }))
+            //implement certificate stuff
+        })
+    });
+    app.get('/api/users/signin',(req,res)=>{
+        console.log("received a GET request for /api/users/siginin");
+        return(res.send({
+            succes:true,
+            message: "testing app.get for /api/users/signin"
+        }));
     });
 }

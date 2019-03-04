@@ -3,8 +3,6 @@ var bodyParser = require('body-parser');
 var config = require('config');
 var mongoose = require('mongoose');
 var path = require('path');
-
-
 var app = express();
 console.log("using: " + __dirname+'/dist');
 app.use(express.static(__dirname+'/dist'));
@@ -36,6 +34,8 @@ var mongoConnect = 'mongodb://'+mongoDbUser+':'+mongoDbPassword+mongoDbURL+mongo
 console.log("Connecting to mongoDB with:" + mongoConnect);
 //Routes
 var Bookmark = require('./routes/Bookmark');
+require('./routes/User')(app);
+
 mongoose.connect(mongoConnect, { useNewUrlParser: true }).then(
 	()=>{
 		console.log("Mongoose connected successfully to: " + mongoConnect)

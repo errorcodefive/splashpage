@@ -11,7 +11,11 @@ var _reactDom = _interopRequireDefault(require("react-dom"));
 
 var _reactModal = _interopRequireDefault(require("react-modal"));
 
+var _reactNotifications = require("react-notifications");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -25,11 +29,11 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 var contentNode = document.getElementById('bookmarksMain');
 
@@ -58,7 +62,7 @@ function (_React$Component) {
     _classCallCheck(this, BookmarkAdd);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(BookmarkAdd).call(this));
-    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -122,10 +126,10 @@ function (_React$Component2) {
     _this2.state = {
       bookmarks: []
     };
-    _this2.createBookmark = _this2.createBookmark.bind(_assertThisInitialized(_assertThisInitialized(_this2))); //TODO: update bookmark
+    _this2.createBookmark = _this2.createBookmark.bind(_assertThisInitialized(_this2)); //TODO: update bookmark
 
-    _this2.loadData = _this2.loadData.bind(_assertThisInitialized(_assertThisInitialized(_this2)));
-    _this2.deleteBookmark = _this2.deleteBookmark.bind(_assertThisInitialized(_assertThisInitialized(_this2)));
+    _this2.loadData = _this2.loadData.bind(_assertThisInitialized(_this2));
+    _this2.deleteBookmark = _this2.deleteBookmark.bind(_assertThisInitialized(_this2));
     return _this2;
   }
 
@@ -214,6 +218,9 @@ function (_React$Component2) {
         loadData: this.loadData
       }), _react.default.createElement("hr", null), _react.default.createElement(BookmarkAdd, {
         createBookmark: this.createBookmark
+      }), _react.default.createElement("hr", null), _react.default.createElement(BookmarkNotification, {
+        notification_type: "Info",
+        notification_message: "random words"
       }));
     }
   }]);
@@ -264,15 +271,15 @@ function (_React$Component4) {
       command: _this6.props.bookmark.command,
       query_url: _this6.props.bookmark.query_url
     };
-    _this6.handleSubmit = _this6.handleSubmit.bind(_assertThisInitialized(_assertThisInitialized(_this6)));
-    _this6.handleChangeName = _this6.handleChangeName.bind(_assertThisInitialized(_assertThisInitialized(_this6)));
-    _this6.handleChangeLink = _this6.handleChangeLink.bind(_assertThisInitialized(_assertThisInitialized(_this6)));
-    _this6.handleChangeCommand = _this6.handleChangeCommand.bind(_assertThisInitialized(_assertThisInitialized(_this6)));
-    _this6.handleChangeQuery = _this6.handleChangeQuery.bind(_assertThisInitialized(_assertThisInitialized(_this6)));
-    _this6.updateBookmark = _this6.updateBookmark.bind(_assertThisInitialized(_assertThisInitialized(_this6)));
-    _this6.closingModal = _this6.closingModal.bind(_assertThisInitialized(_assertThisInitialized(_this6)));
-    _this6.myOnSubmit = _this6.myOnSubmit.bind(_assertThisInitialized(_assertThisInitialized(_this6)));
-    _this6.loadData = _this6.props.loadData.bind(_assertThisInitialized(_assertThisInitialized(_this6)));
+    _this6.handleSubmit = _this6.handleSubmit.bind(_assertThisInitialized(_this6));
+    _this6.handleChangeName = _this6.handleChangeName.bind(_assertThisInitialized(_this6));
+    _this6.handleChangeLink = _this6.handleChangeLink.bind(_assertThisInitialized(_this6));
+    _this6.handleChangeCommand = _this6.handleChangeCommand.bind(_assertThisInitialized(_this6));
+    _this6.handleChangeQuery = _this6.handleChangeQuery.bind(_assertThisInitialized(_this6));
+    _this6.updateBookmark = _this6.updateBookmark.bind(_assertThisInitialized(_this6));
+    _this6.closingModal = _this6.closingModal.bind(_assertThisInitialized(_this6));
+    _this6.myOnSubmit = _this6.myOnSubmit.bind(_assertThisInitialized(_this6));
+    _this6.loadData = _this6.props.loadData.bind(_assertThisInitialized(_this6));
     return _this6;
   }
 
@@ -397,9 +404,9 @@ function (_React$Component5) {
     _this8.state = {
       showModal: false
     };
-    _this8.handleOpenModal = _this8.handleOpenModal.bind(_assertThisInitialized(_assertThisInitialized(_this8))); //this.afterOpenModal = this.afterOpenModal.bind(this);
+    _this8.handleOpenModal = _this8.handleOpenModal.bind(_assertThisInitialized(_this8)); //this.afterOpenModal = this.afterOpenModal.bind(this);
 
-    _this8.handleCloseModal = _this8.handleCloseModal.bind(_assertThisInitialized(_assertThisInitialized(_this8)));
+    _this8.handleCloseModal = _this8.handleCloseModal.bind(_assertThisInitialized(_this8));
     return _this8;
   }
 
@@ -409,10 +416,7 @@ function (_React$Component5) {
       this.setState({
         showModal: true
       });
-    } // afterOpenModal(){
-    // 	this.
-    // }
-
+    }
   }, {
     key: "handleCloseModal",
     value: function handleCloseModal() {
@@ -443,6 +447,43 @@ function (_React$Component5) {
   }]);
 
   return BookmarkUpdateModal;
+}(_react.default.Component);
+
+var BookmarkNotification =
+/*#__PURE__*/
+function (_React$Component6) {
+  _inherits(BookmarkNotification, _React$Component6);
+
+  function BookmarkNotification() {
+    var _this9;
+
+    _classCallCheck(this, BookmarkNotification);
+
+    _this9 = _possibleConstructorReturn(this, _getPrototypeOf(BookmarkNotification).call(this));
+
+    _defineProperty(_assertThisInitialized(_this9), "createNotification", function (type, message) {
+      console.log('info button clicked type is: ' + type);
+
+      _reactNotifications.NotificationManager.info(message);
+    });
+
+    return _this9;
+  }
+
+  _createClass(BookmarkNotification, [{
+    key: "render",
+    value: function render() {
+      var _this10 = this;
+
+      return _react.default.createElement("div", null, _react.default.createElement("button", {
+        onClick: function onClick() {
+          _this10.createNotification(_this10.props.notification_type, _this10.props.notification_message);
+        }
+      }, "Test button"), _react.default.createElement(_reactNotifications.NotificationContainer, null));
+    }
+  }]);
+
+  return BookmarkNotification;
 }(_react.default.Component);
 
 _reactDom.default.render(_react.default.createElement(BookmarksList, null), contentNode);
