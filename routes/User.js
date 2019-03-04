@@ -46,7 +46,7 @@ module.exports = (app) => {
                 })
             }
             //otherwise login is all good
-            console.log("User and Password is good");
+            console.log("Username and Password is good");
             return(res.send({
                 success:true,
                 message: "Authenticated"
