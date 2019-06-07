@@ -8,8 +8,7 @@ var userSchema = new Schema({
 });
   
 userSchema.methods.validPassword = function(password) {
-    console.log("Runinng bcrypt to compare passwords");
-    return bcrypt.compare(this.password, password);
+    return bcrypt.compareSync(password, this.password);
 };
   
 module.exports = mongoose.model('User', userSchema);

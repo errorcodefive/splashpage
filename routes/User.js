@@ -41,7 +41,6 @@ module.exports = (app) => {
             var passwordMatches;
 
             passwordMatches = foundUser.validPassword(password);
-            console.log("Password Matches: " + passwordMatches);
 
             if(passwordMatches == false){
                 console.log("Password does not match");
