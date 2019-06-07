@@ -27,6 +27,10 @@ module.exports={
         new HtmlWebPackPlugin({
             template: "./client/index.html",
             filename: "./index.html"
+        }),
+        new HtmlWebPackPlugin({
+            template: "./client/login.html",
+            filename: "./login.html"
         })
     ],
     devServer:{

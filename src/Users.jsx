@@ -67,5 +67,5 @@ class LoginForm extends React.Component{
     }
 }
 
-ReactDOM.render(<LoginMain/>, contentNode);
+ReactDOM.render(<LoginMain />, contentNode);
 export default LoginMain;

@@ -1,13 +1,19 @@
 var express = require('express');
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
 var bodyParser = require('body-parser');
 var config = require('config');
 var mongoose = require('mongoose');
 var path = require('path');
+
 var app = express();
+
 console.log("using: " + __dirname+'/dist');
 app.use(express.static(__dirname+'/dist'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(cookieParser());
+app.use(session({secret: "secret is here"}));
 
 console.log("Checking if development or production:");
 process_env = process.env.NODE_ENV || 'development';
@@ -52,9 +58,14 @@ app.route("/api/bookmarks/:id")
 	.put(Bookmark.updateBookmark)
 	.delete(Bookmark.deleteBookmark);
 
+
+//if no cookie then go to login.html
+//otherwise go to index.html
+
 // This is a catchall for all other route cases
 app.get('*', (req,res)=>{
 	res.sendFile(path.resolve(__dirname,'/dist/index.html'));
+	//res.sendFile(path.resolve(__dirname,'/dist/index.html'));
 });
 
 module.exports = app.listen(process.env.PORT || 3000, function(){
