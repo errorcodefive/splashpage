@@ -38,19 +38,25 @@ module.exports = (app) => {
                 })
             }
             var foundUser=users[0];
-            if(!foundUser.validPassword(password)){
+            var passwordMatches;
+
+            passwordMatches = foundUser.validPassword(password);
+            console.log("Password Matches: " + passwordMatches);
+
+            if(passwordMatches == false){
                 console.log("Password does not match");
                 return res.send({
                     success:false,
                     message: "Password does not match"
                 })
+            } else{
+                //otherwise login is all good
+                console.log("Username and Password is good");
+                return(res.send({
+                    success:true,
+                    message: "Authenticated"
+                }))
             }
-            //otherwise login is all good
-            console.log("Username and Password is good");
-            return(res.send({
-                success:true,
-                message: "Authenticated"
-            }))
             //implement certificate stuff
         })
     });
