@@ -1,5 +1,5 @@
 const HtmlWebPackPlugin = require('html-webpack-plugin');
-
+const webpack = require('webpack');
 module.exports={
     entry: './src/App.jsx',
     module:{
@@ -31,11 +31,12 @@ module.exports={
         new HtmlWebPackPlugin({
             template: "./client/login.html",
             filename: "./login.html"
-        })
+        }),
+        new webpack.EnvironmentPlugin(['NODE_ENV', 'DEBUG'])
     ],
     devServer:{
         proxy:{
-            '/api':'http://localhost:3000'
+            '/api':'http://localhost:8080'
         }
     }
 }
