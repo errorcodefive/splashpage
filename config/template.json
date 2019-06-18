@@ -10,5 +10,8 @@
         "secret":"aws secret key",
         "bucket":"aws bucket name",
         "region":"aws bucket region"
+    },
+    "jwt":{
+        "key":"json web token key"
     }
 }
