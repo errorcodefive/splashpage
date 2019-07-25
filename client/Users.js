@@ -3,13 +3,13 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports["default"] = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
 var _reactDom = _interopRequireDefault(require("react-dom"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -45,12 +45,12 @@ function (_React$Component) {
   _createClass(LoginMain, [{
     key: "render",
     value: function render() {
-      return _react.default.createElement("div", null, _react.default.createElement(LoginForm, null));
+      return _react["default"].createElement("div", null, _react["default"].createElement(LoginForm, null));
     }
   }]);
 
   return LoginMain;
-}(_react.default.Component);
+}(_react["default"].Component);
 
 var LoginForm =
 /*#__PURE__*/
@@ -106,22 +106,22 @@ function (_React$Component2) {
         return response.json();
       }).then(function (response) {
         console.log("HERE:" + JSON.stringify(response));
-      }).catch(function (err) {
+      })["catch"](function (err) {
         console.log("Error sending data to server: " + err.message);
       });
     }
   }, {
     key: "render",
     value: function render() {
-      return _react.default.createElement("form", {
+      return _react["default"].createElement("form", {
         onSubmit: this.handleSubmit
-      }, _react.default.createElement("label", null, "Username:"), _react.default.createElement("input", {
+      }, _react["default"].createElement("label", null, "Username:"), _react["default"].createElement("input", {
         type: "text",
         ref: "username"
-      }), _react.default.createElement("label", null, "Password:"), _react.default.createElement("input", {
+      }), _react["default"].createElement("label", null, "Password:"), _react["default"].createElement("input", {
         type: "text",
         ref: "password"
-      }), _react.default.createElement("input", {
+      }), _react["default"].createElement("input", {
         type: "submit",
         value: "Submit"
       }));
@@ -129,9 +129,9 @@ function (_React$Component2) {
   }]);
 
   return LoginForm;
-}(_react.default.Component);
+}(_react["default"].Component);
 
-_reactDom.default.render(_react.default.createElement(LoginMain, null), contentNode);
+_reactDom["default"].render(_react["default"].createElement(LoginMain, null), contentNode);
 
 var _default = LoginMain;
-exports.default = _default;
+exports["default"] = _default;

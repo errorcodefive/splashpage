@@ -6,7 +6,7 @@ var _reactDom = _interopRequireDefault(require("react-dom"));
 
 var _reactNotifications = require("react-notifications");
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -82,22 +82,22 @@ function (_React$Component) {
   _createClass(NotificationComponent, [{
     key: "render",
     value: function render() {
-      return _react.default.createElement("div", null, _react.default.createElement("button", {
+      return _react["default"].createElement("div", null, _react["default"].createElement("button", {
         className: "btn btn-info",
         onClick: this.createNotification('info')
-      }, "Info"), _react.default.createElement("hr", null), _react.default.createElement("button", {
+      }, "Info"), _react["default"].createElement("hr", null), _react["default"].createElement("button", {
         className: "btn btn-success",
         onClick: this.createNotification('success')
-      }, "Success"), _react.default.createElement("hr", null), _react.default.createElement("button", {
+      }, "Success"), _react["default"].createElement("hr", null), _react["default"].createElement("button", {
         className: "btn btn-warning",
         onClick: this.createNotification('warning')
-      }, "Warning"), _react.default.createElement("hr", null), _react.default.createElement("button", {
+      }, "Warning"), _react["default"].createElement("hr", null), _react["default"].createElement("button", {
         className: "btn btn-danger",
         onClick: this.createNotification('error')
-      }, "Error"), _react.default.createElement(_reactNotifications.NotificationContainer, null));
+      }, "Error"), _react["default"].createElement(_reactNotifications.NotificationContainer, null));
     }
   }]);
 
   return NotificationComponent;
-}(_react.default.Component); //ReactDOM.render(<NotificationComponent />, contentNode);
+}(_react["default"].Component); //ReactDOM.render(<NotificationComponent />, contentNode);
 //export default NotificationComponent;

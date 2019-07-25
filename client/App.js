@@ -12,7 +12,7 @@ var _Users = _interopRequireDefault(require("./Users.jsx"));
 
 require("./styles/notifications.css");
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 //import DatesMain from "./Date.jsx";
 //import NotificationComponent from './Notifications.jsx';

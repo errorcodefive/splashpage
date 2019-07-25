@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports["default"] = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -41,14 +41,14 @@ function BookmarksTable(props) {
   console.log("Creating bookmarks table");
   console.log(JSON.stringify(props.bookmarks));
   var bookmarkRows = props.bookmarks.map(function (bookmark) {
-    return _react.default.createElement(BookmarkRow, {
+    return _react["default"].createElement(BookmarkRow, {
       key: bookmark._id,
       bookmark: bookmark,
       deleteBookmark: props.deleteBookmark,
       loadData: props.loadData
     });
   });
-  return _react.default.createElement("table", null, _react.default.createElement("thead", null, _react.default.createElement("tr", null, _react.default.createElement("th", null, "ID"), _react.default.createElement("th", null, "Name"), _react.default.createElement("th", null, "Link"), _react.default.createElement("th", null), _react.default.createElement("th", null))), _react.default.createElement("tbody", null, bookmarkRows));
+  return _react["default"].createElement("table", null, _react["default"].createElement("thead", null, _react["default"].createElement("tr", null, _react["default"].createElement("th", null, "ID"), _react["default"].createElement("th", null, "Name"), _react["default"].createElement("th", null, "Link"), _react["default"].createElement("th", null), _react["default"].createElement("th", null))), _react["default"].createElement("tbody", null, bookmarkRows));
 }
 
 var BookmarkAdd =
@@ -81,32 +81,32 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return _react.default.createElement("div", null, _react.default.createElement("form", {
+      return _react["default"].createElement("div", null, _react["default"].createElement("form", {
         name: "bookmarkAdd",
         onSubmit: this.handleSubmit
-      }, _react.default.createElement("input", {
+      }, _react["default"].createElement("input", {
         type: "text",
         name: "name",
         placeholder: "Name"
-      }), _react.default.createElement("input", {
+      }), _react["default"].createElement("input", {
         type: "text",
         name: "link",
         placeholder: "Link"
-      }), _react.default.createElement("button", null, "Add")));
+      }), _react["default"].createElement("button", null, "Add")));
     }
   }]);
 
   return BookmarkAdd;
-}(_react.default.Component);
+}(_react["default"].Component);
 
 var BookmarkRow = function BookmarkRow(props) {
-  return _react.default.createElement("tr", null, _react.default.createElement("td", null, props.bookmark._id), _react.default.createElement("td", null, props.bookmark.name), _react.default.createElement("td", null, _react.default.createElement(BookmarksLink, {
+  return _react["default"].createElement("tr", null, _react["default"].createElement("td", null, props.bookmark._id), _react["default"].createElement("td", null, props.bookmark.name), _react["default"].createElement("td", null, _react["default"].createElement(BookmarksLink, {
     bookmark: props.bookmark
-  })), _react.default.createElement("td", null, _react.default.createElement("button", {
+  })), _react["default"].createElement("td", null, _react["default"].createElement("button", {
     onClick: function onClick() {
       return props.deleteBookmark(props.bookmark);
     }
-  }, "X")), _react.default.createElement("td", null, _react.default.createElement(BookmarkUpdateModal, {
+  }, "X")), _react["default"].createElement("td", null, _react["default"].createElement(BookmarkUpdateModal, {
     bookmark: props.bookmark,
     loadData: props.loadData
   })));
@@ -152,7 +152,7 @@ function (_React$Component2) {
           console.log("HERE:" + JSON.stringify(response));
 
           _this3.loadData();
-        }).catch(function (err) {
+        })["catch"](function (err) {
           alert("Error sending data to server: " + err.message);
         });
       }
@@ -178,7 +178,7 @@ function (_React$Component2) {
         _this4.setState({
           bookmarks: data.data
         });
-      }).catch(function (err) {
+      })["catch"](function (err) {
         console.log(err);
       });
     }
@@ -205,20 +205,20 @@ function (_React$Component2) {
         console.log("HERE:" + JSON.stringify(response));
 
         _this5.loadData(response);
-      }).catch(function (err) {
+      })["catch"](function (err) {
         alert("Error sending data to server: " + err.message);
       });
     }
   }, {
     key: "render",
     value: function render() {
-      return _react.default.createElement("div", null, _react.default.createElement("h1", null, "Bookmarks"), _react.default.createElement("hr", null), _react.default.createElement(BookmarksTable, {
+      return _react["default"].createElement("div", null, _react["default"].createElement("h1", null, "Bookmarks"), _react["default"].createElement("hr", null), _react["default"].createElement(BookmarksTable, {
         bookmarks: this.state.bookmarks,
         deleteBookmark: this.deleteBookmark,
         loadData: this.loadData
-      }), _react.default.createElement("hr", null), _react.default.createElement(BookmarkAdd, {
+      }), _react["default"].createElement("hr", null), _react["default"].createElement(BookmarkAdd, {
         createBookmark: this.createBookmark
-      }), _react.default.createElement("hr", null), _react.default.createElement(BookmarkNotification, {
+      }), _react["default"].createElement("hr", null), _react["default"].createElement(BookmarkNotification, {
         notification_type: "Info",
         notification_message: "random words"
       }));
@@ -226,7 +226,7 @@ function (_React$Component2) {
   }]);
 
   return BookmarksList;
-}(_react.default.Component);
+}(_react["default"].Component);
 
 var BookmarksLink =
 /*#__PURE__*/
@@ -243,7 +243,7 @@ function (_React$Component3) {
     key: "render",
     value: function render() {
       var bookmark = this.props.bookmark;
-      return _react.default.createElement("a", {
+      return _react["default"].createElement("a", {
         href: bookmark.link,
         target: "_blank"
       }, bookmark.name);
@@ -251,7 +251,7 @@ function (_React$Component3) {
   }]);
 
   return BookmarksLink;
-}(_react.default.Component);
+}(_react["default"].Component);
 
 var BookmarkUpdateForm =
 /*#__PURE__*/
@@ -338,32 +338,32 @@ function (_React$Component4) {
     key: "render",
     value: function render() {
       var bookmark = this.props.bookmark;
-      return _react.default.createElement("div", null, "Update ", bookmark.name, _react.default.createElement("form", {
+      return _react["default"].createElement("div", null, "Update ", bookmark.name, _react["default"].createElement("form", {
         name: "bookmarkUpdate",
         onSubmit: this.myOnSubmit
-      }, _react.default.createElement("input", {
+      }, _react["default"].createElement("input", {
         type: "text",
         name: "name",
         value: this.state.name,
         onChange: this.handleChangeName
-      }), _react.default.createElement("input", {
+      }), _react["default"].createElement("input", {
         type: "text",
         name: "link",
         value: this.state.link,
         onChange: this.handleChangeLink
-      }), _react.default.createElement("input", {
+      }), _react["default"].createElement("input", {
         type: "text",
         name: "command",
         value: bookmark.command,
         placeholder: "Command",
         onChange: this.handleChangeCommand
-      }), _react.default.createElement("input", {
+      }), _react["default"].createElement("input", {
         type: "text",
         name: "query_url",
         value: bookmark.query_url,
         placeholder: "Query URL",
         onChange: this.handleChangeQuery
-      }), _react.default.createElement("button", null, "Update")));
+      }), _react["default"].createElement("button", null, "Update")));
     }
   }, {
     key: "updateBookmark",
@@ -388,7 +388,7 @@ function (_React$Component4) {
   }]);
 
   return BookmarkUpdateForm;
-}(_react.default.Component);
+}(_react["default"].Component);
 
 var BookmarkUpdateModal =
 /*#__PURE__*/
@@ -429,15 +429,15 @@ function (_React$Component5) {
     value: function render() {
       var bookmark = this.props.bookmark;
       return (//render a bookmark row + an update button
-        _react.default.createElement("div", null, _react.default.createElement("button", {
+        _react["default"].createElement("div", null, _react["default"].createElement("button", {
           onClick: this.handleOpenModal
-        }, "Update ", bookmark.name), _react.default.createElement(_reactModal.default, {
+        }, "Update ", bookmark.name), _react["default"].createElement(_reactModal["default"], {
           isOpen: this.state.showModal,
           contentLabel: "Test123",
           onRequstClose: this.closeModal
-        }, _react.default.createElement("button", {
+        }, _react["default"].createElement("button", {
           onClick: this.handleCloseModal
-        }, "Close Modal"), _react.default.createElement(BookmarkUpdateForm, {
+        }, "Close Modal"), _react["default"].createElement(BookmarkUpdateForm, {
           bookmark: bookmark,
           closeModal: this.handleCloseModal,
           loadData: this.props.loadData
@@ -447,7 +447,7 @@ function (_React$Component5) {
   }]);
 
   return BookmarkUpdateModal;
-}(_react.default.Component);
+}(_react["default"].Component);
 
 var BookmarkNotification =
 /*#__PURE__*/
@@ -475,18 +475,18 @@ function (_React$Component6) {
     value: function render() {
       var _this10 = this;
 
-      return _react.default.createElement("div", null, _react.default.createElement("button", {
+      return _react["default"].createElement("div", null, _react["default"].createElement("button", {
         onClick: function onClick() {
           _this10.createNotification(_this10.props.notification_type, _this10.props.notification_message);
         }
-      }, "Test button"), _react.default.createElement(_reactNotifications.NotificationContainer, null));
+      }, "Test button"), _react["default"].createElement(_reactNotifications.NotificationContainer, null));
     }
   }]);
 
   return BookmarkNotification;
-}(_react.default.Component);
+}(_react["default"].Component);
 
-_reactDom.default.render(_react.default.createElement(BookmarksList, null), contentNode);
+_reactDom["default"].render(_react["default"].createElement(BookmarksList, null), contentNode);
 
 var _default = BookmarksList;
-exports.default = _default;
+exports["default"] = _default;

@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports["default"] = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -15,7 +15,7 @@ var _reactLiveClock = _interopRequireDefault(require("react-live-clock"));
 
 var _reactTimezone = _interopRequireDefault(require("react-timezone"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -68,9 +68,9 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return _react.default.createElement("div", null, _react.default.createElement(DateDisp, {
+      return _react["default"].createElement("div", null, _react["default"].createElement(DateDisp, {
         timezone: this.state.activetimezone
-      }), _react.default.createElement(ClockTime, {
+      }), _react["default"].createElement(ClockTime, {
         timezone: this.state.activetimezone,
         handleTimeZoneChange: this.handleTimeZoneChange
       }));
@@ -78,7 +78,7 @@ function (_React$Component) {
   }]);
 
   return ClocksMain;
-}(_react.default.Component);
+}(_react["default"].Component);
 
 var ClockTime =
 /*#__PURE__*/
@@ -99,10 +99,10 @@ function (_React$Component2) {
   _createClass(ClockTime, [{
     key: "render",
     value: function render() {
-      return _react.default.createElement("div", null, _react.default.createElement(_reactLiveClock.default, {
+      return _react["default"].createElement("div", null, _react["default"].createElement(_reactLiveClock["default"], {
         timezone: this.props.timezone,
         format: 'h:mm'
-      }), this.props.timezone, _react.default.createElement(TimeZoneSelector, {
+      }), this.props.timezone, _react["default"].createElement(TimeZoneSelector, {
         timezone: this.props.timezone,
         handleTimeZoneChange: this.props.handleTimeZoneChange
       }));
@@ -110,7 +110,7 @@ function (_React$Component2) {
   }]);
 
   return ClockTime;
-}(_react.default.Component);
+}(_react["default"].Component);
 
 var DateDisp =
 /*#__PURE__*/
@@ -126,7 +126,7 @@ function (_React$Component3) {
   _createClass(DateDisp, [{
     key: "render",
     value: function render() {
-      return _react.default.createElement(_reactLiveClock.default, {
+      return _react["default"].createElement(_reactLiveClock["default"], {
         timezone: this.props.timezone,
         format: 'dddd, MMMM Do'
       });
@@ -134,7 +134,7 @@ function (_React$Component3) {
   }]);
 
   return DateDisp;
-}(_react.default.Component);
+}(_react["default"].Component);
 
 var TimeZoneSelector =
 /*#__PURE__*/
@@ -157,7 +157,7 @@ function (_React$Component4) {
       var _this4 = this;
 
       this.current_timezone = this.props.timezone;
-      return _react.default.createElement(_reactTimezone.default, {
+      return _react["default"].createElement(_reactTimezone["default"], {
         value: "" // onChange={timezone => {
         //     console.log("New timezone Selected:", timezone);
         // };
@@ -176,9 +176,9 @@ function (_React$Component4) {
   }]);
 
   return TimeZoneSelector;
-}(_react.default.Component);
+}(_react["default"].Component);
 
-_reactDom.default.render(_react.default.createElement(ClocksMain, null), contentNode);
+_reactDom["default"].render(_react["default"].createElement(ClocksMain, null), contentNode);
 
 var _default = ClocksMain;
-exports.default = _default;
+exports["default"] = _default;

@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports["default"] = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -11,7 +11,7 @@ var _reactDom = _interopRequireDefault(require("react-dom"));
 
 var _reactLiveClock = _interopRequireDefault(require("react-live-clock"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -47,14 +47,14 @@ function (_React$Component) {
   _createClass(DatesMain, [{
     key: "render",
     value: function render() {
-      return _react.default.createElement("div", null, "Dateplaceholder");
+      return _react["default"].createElement("div", null, "Dateplaceholder");
     }
   }]);
 
   return DatesMain;
-}(_react.default.Component);
+}(_react["default"].Component);
 
-_reactDom.default.render(_react.default.createElement(DatesMain, null), contentNode);
+_reactDom["default"].render(_react["default"].createElement(DatesMain, null), contentNode);
 
 var _default = DatesMain;
-exports.default = _default;
+exports["default"] = _default;

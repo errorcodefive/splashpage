@@ -5,6 +5,8 @@ var bodyParser = require('body-parser');
 var config = require('config');
 var mongoose = require('mongoose');
 var path = require('path');
+var jwt = require('jsonwebtoken');
+var user = require('./schemas/users');
 
 var app = express();
 
@@ -12,6 +14,7 @@ console.log("using: " + __dirname+'/dist');
 app.use(express.static(__dirname+'/dist'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+
 // app.use(cookieParser());
 // app.use(session({secret: "secret is here"}));
 
@@ -29,11 +32,16 @@ if (process_env == "development") {
 	var mongoDbUser = config.mongoDB.user;
 	var mongoDbPassword = config.mongoDB.pw;
 	var mongoDbURL = config.mongoDB.url;
+	var jwttokenkey = config.jwt.key;
+
 } else {
+
 	var mongoDbName = process.env.MONGODB_DB;
 	var mongoDbUser = process.env.MONGODB_USER;
 	var mongoDbPassword = process.env.MONGODB_PW;
 	var mongoDbURL = process.env.MONGODB_URL;
+	var jwttokenkey = process.env.JSONWEBTOKENKEY;
+
 }
 
 var mongoConnect = 'mongodb://'+mongoDbUser+':'+mongoDbPassword+mongoDbURL+mongoDbName;
@@ -50,6 +58,30 @@ mongoose.connect(mongoConnect, { useNewUrlParser: true }).then(
 		console.log('ERROR: Mongoose did not connect.', err);
 	}
 );
+
+//setting up json web token use
+app.use(function(req, res, next){
+	try{
+		const token = req.headers.authorization.split(" ")[1]
+		jwt.verify(token, jwttokenkey, function(err,payload){
+			console.log("Payload: " + payload);
+			if (payload){
+				user.findById(payload.userId).then(
+					(doc)=>{
+						req.user=doc;
+						next()
+					}
+				)
+			} else {
+				console.log("Payload does not exist");
+				next()
+			}
+		})
+	} catch (e){
+		console.log("Error: " + e);
+		next()
+	}
+});
 
 app.route("/api/bookmarks")
 	.get(Bookmark.getBookmarks)

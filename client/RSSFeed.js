@@ -6,7 +6,7 @@ var _reactDom = _interopRequireDefault(require("react-dom"));
 
 var _reactNotifications = require("react-notifications");
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -68,20 +68,20 @@ function (_React$Component) {
 
       if (renderList) {
         //render List instead of feed
-        visible = _react.default.createElement("rssList", null);
+        visible = _react["default"].createElement("rssList", null);
       } else {
         //render Feed instead of list
-        visible = _react.default.createElement("rssFeed", null);
+        visible = _react["default"].createElement("rssFeed", null);
       }
 
-      return _react.default.createElement("div", null, "RSSFEEDS HERE", _react.default.createElement("button", {
+      return _react["default"].createElement("div", null, "RSSFEEDS HERE", _react["default"].createElement("button", {
         onClick: this.handleClick
       }, "Click to toggle"), visible);
     }
   }]);
 
   return rssFeedBody;
-}(_react.default.Component); //this is the list of feed name and links
+}(_react["default"].Component); //this is the list of feed name and links
 
 
 var rssList =
@@ -98,12 +98,12 @@ function (_React$Component2) {
   _createClass(rssList, [{
     key: "render",
     value: function render() {
-      return _react.default.createElement("div", null, "This is the rssList");
+      return _react["default"].createElement("div", null, "This is the rssList");
     }
   }]);
 
   return rssList;
-}(_react.default.Component); //this is a single line for rssList - needs name, url and delete button
+}(_react["default"].Component); //this is a single line for rssList - needs name, url and delete button
 
 
 var rssListLine =
@@ -121,12 +121,12 @@ function (_React$Component3) {
     key: "render",
     value: function render() {
       var rssItem = this.props.rssItem;
-      return _react.default.createElement("tr", null, _react.default.createElement("td", null, rssItem.name), _react.default.createElement("td", null, rssItem.link), _react.default.createElement("td", null, rssItem.description));
+      return _react["default"].createElement("tr", null, _react["default"].createElement("td", null, rssItem.name), _react["default"].createElement("td", null, rssItem.link), _react["default"].createElement("td", null, rssItem.description));
     }
   }]);
 
   return rssListLine;
-}(_react.default.Component); //this is the list of feed items (feed mode)
+}(_react["default"].Component); //this is the list of feed items (feed mode)
 
 
 var rssFeed =
@@ -143,14 +143,14 @@ function (_React$component) {
   _createClass(rssFeed, [{
     key: "render",
     value: function render() {
-      return _react.default.createElement("div", null, "This is the rssFeed");
+      return _react["default"].createElement("div", null, "This is the rssFeed");
     }
   }]);
 
   return rssFeed;
-}(_react.default.component); //Two lists, one of the feed name and links w/ delete, add
+}(_react["default"].component); //Two lists, one of the feed name and links w/ delete, add
 //Second list with the feed items
 //Possible a toggle to change between the two
 
 
-_reactDom.default.render(_react.default.createElement("rssFeedBody", null), contentNode);
+_reactDom["default"].render(_react["default"].createElement("rssFeedBody", null), contentNode);

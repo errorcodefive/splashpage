@@ -28,10 +28,6 @@ module.exports={
             template: "./client/index.html",
             filename: "./index.html"
         }),
-        new HtmlWebPackPlugin({
-            template: "./client/login.html",
-            filename: "./login.html"
-        }),
         new webpack.EnvironmentPlugin(['NODE_ENV', 'DEBUG'])
     ],
     devServer:{

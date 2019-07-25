@@ -1,5 +1,18 @@
 var mongoose = require('mongoose');
 var User = require('../schemas/users');
+var jwt = require('jsonwebtoken');
+var config = require('config');
+
+if (process_env == "development") {
+	
+	var jwttokenkey = config.jwt.key;
+
+} else {
+
+	var jwttokenkey = process.env.JSONWEBTOKENKEY;
+
+}
+
 
 module.exports = (app) => {
     app.post('/api/users/signin', (req,res)=>{
@@ -8,12 +21,15 @@ module.exports = (app) => {
         var password = req.body.password;
 
         if(!username){
-            return res.send({ success: false,
-            message: 'Error: Username cannot be blank.'
+            return res.send({ 
+                status: 400,
+                success: false,
+                message: 'Error: Username cannot be blank.'
             });
         }
         if(!password){
             return res.send({
+                status: 400,
                 success: false,
                 message: 'Error: Password cannot be blank.'
             });
@@ -26,6 +42,7 @@ module.exports = (app) => {
             if(err){
                 console.log("Error finding user." + err);
                 return res.send({
+                    status: 400,
                     success:false,
                     message: 'Error finding user.'
                 });
@@ -33,6 +50,7 @@ module.exports = (app) => {
             if(users.length !=1){
                 console.log("Error finding user." + err);
                 return res.send({
+                    status: 400,
                     success:false,
                     message: "Error finding user."
                 })
@@ -45,15 +63,21 @@ module.exports = (app) => {
             if(passwordMatches == false){
                 console.log("Password does not match");
                 return res.send({
+                    status: 400,
                     success:false,
                     message: "Password does not match"
                 })
             } else{
                 //otherwise login is all good
+
+                var token = jwt.sign({username:foundUser},jwttokenkey)
+
                 console.log("Username and Password is good");
+                console.log("Token: " + token);
                 return(res.send({
-                    success:true,
-                    message: "Authenticated"
+                    username: foundUser.username,
+                    message: "Authenticated",
+                    token
                 }))
             }
             //implement certificate stuff
