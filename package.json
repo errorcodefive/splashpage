@@ -15,7 +15,7 @@
     "start_dev": "SET NODE_ENV=development&& nodemon -w server.js server.js",
     "start": "node server.js server.js",
     "webpack_build": "webpack --mode production",
-    "webpack_start": "webpack-dev-server --port 8080 -d --open --mode development",
+    "webpack_start": "SET NODE_ENV=development&& webpack-dev-server -d --open --mode development",
     "postinstall": "webpack -p"
   },
   "repository": {
@@ -43,7 +43,7 @@
     "mongoose": "^5.6.6",
     "node": "^12.7.0",
     "nodemon": "^1.19.1",
-    "npm": "^6.10.2",
+    "npm": "^6.13.1",
     "npm-lifecycle": "^2.1.1",
     "qs": "^6.7.0",
     "react": "^16.8.6",

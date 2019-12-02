@@ -23,7 +23,6 @@ process_env = process.env.NODE_ENV || 'development';
 console.log("The environment is: " + process_env);
 
 console.log("Begin config var loading:");
-
 //connect to mongodb
 
 if (process_env == "development") {
