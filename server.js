@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 // app.use(session({secret: "secret is here"}));
 
 console.log("Checking if development or production:");
-process_env = process.env.NODE_ENV || 'development';
+var process_env = process.env.NODE_ENV || 'development';
 console.log("The environment is: " + process_env);
 
 console.log("Begin config var loading:");
