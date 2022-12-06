@@ -45,7 +45,7 @@
     "nodemon": "^2.0.4",
     "npm": "^6.14.7",
     "npm-lifecycle": "^2.1.1",
-    "qs": "^6.7.0",
+    "qs": "^6.9.7",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-live-clock": "^5.0.13",
